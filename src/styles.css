@@ -4,13 +4,21 @@
 @import "../node_modules/primeng/resources/themes/md-dark-deeppurple/theme.css";
 @import "../node_modules/primeflex/primeflex.css";
 
+@media (min-width: 40em) {
+  .col-valor-header {
+    width: 120px;
+  }
+
+  .col-acoes {
+    width: 10rem;
+    margin: 1px;
+  }
+
+}
+
 body {
   background-color: #121212;
   margin: 0;
   padding: 2em;
   font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Roboto, Helvetica, Arial, sans-serif, “Apple Color Emoji”, “Segoe UI Emoji”, “Segoe UI Symbol”;  color: #ffffff;
-}
-
-.col-acoes {
-  width: 10rem;
 }

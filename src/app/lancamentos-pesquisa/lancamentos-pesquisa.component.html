@@ -1,0 +1,62 @@
+<div class="grid">
+  <div class="col-12">
+    <h1>Lançamentos</h1>
+  </div>
+
+  <div class="col-12">
+    <h4 for="descricao">Descrição</h4>
+    <input id="descricao" type="text" class="w-full" pInputText>
+  </div>
+
+  <div class="col-12">
+    <h4 for="descricao" style="display: block">Vencimento</h4>
+    <input id="descricao" type="text" pInputText style="width: 95px">
+    <label for="descricao"> Até </label>
+    <input id="descricao" type="text" pInputText style="width: 95px">
+  </div>
+
+  <div class="field col-12">
+    <button pButton type="submit" label="Pesquisar"></button>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="col-12">
+    <p-table [value]="lancamentos" [paginator]="true" [rows]="5" [responsive]="true"
+    [lazy]="true" [showCurrentPageReport]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Tipo</th>
+          <th>Descrição</th>
+          <th>Nome</th>
+          <th>Valor</th>
+          <th>Data vencimento</th>
+          <th>Ações</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-lancamentos>
+        <tr>
+          <td>{{lancamentos.tipo}}</td>
+          <td>{{lancamentos.descricao}}</td>
+          <td>{{lancamentos.pessoa}}</td>
+          <td>
+            <span [style.color]="lancamentos.tipo === 'DESPESA' ? '#f09b99' : '#ce94d9'">R$
+              {{lancamentos.valor}}</span>
+          </td>
+          <td>{{lancamentos.dataVencimento}}</td>
+          <td class="col-acoes">
+            <a pButton pRipple class="mr-2 mb-2" icon="pi pi-pencil" pTooltip="Editar" type="button"
+              tooltipPosition="top" showDelay="300"></a>
+            <a pButton pRipple class="mr-2 mb-2" icon="pi pi-trash" pTooltip="Apagar" type="button"
+              tooltipPosition="top" showDelay="300"></a>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </div>
+
+  <div class="field col-12">
+    <a pButton type="submit" label="Novo lançamento"></a>
+  </div>
+</div>
