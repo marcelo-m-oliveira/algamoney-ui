@@ -20,7 +20,7 @@ export class LancamentosPesquisaComponent {
       dataPagamento: new Date(2022, 6, 10), valor: 80, pessoa: 'Velho ponto net'
     },
     {
-      tipo: 'DEFESA', descricao: 'Namoro', dataVencimento: new Date(2022, 6, 12),
+      tipo: 'DESPESA', descricao: 'Namoro', dataVencimento: new Date(2022, 6, 12),
       dataPagamento: new Date(2022, 6, 11), valor: 1200, pessoa: 'Kamila'
     },
     {
