@@ -31,6 +31,7 @@
             <th>Nome</th>
             <th>Valor</th>
             <th>Data vencimento</th>
+            <th>Data pagamento</th>
             <th>Ações</th>
           </tr>
         </ng-template>
@@ -40,14 +41,15 @@
             <td>{{lancamentos.descricao}}</td>
             <td>{{lancamentos.pessoa}}</td>
             <td>
-              <span [style.color]="lancamentos.tipo === 'DESPESA' ? '#f09b99' : '#ce94d9'">R$
-                {{lancamentos.valor}}</span>
+              <span [style.color]="lancamentos.tipo === 'DESPESA' ? '#f09b99' : '#ce94d9'">
+                {{lancamentos.valor | currency}}</span>
             </td>
-            <td>{{lancamentos.dataVencimento}}</td>
+            <td>{{lancamentos.dataVencimento | date: 'dd/MM/Y'}}</td>
+            <td>{{lancamentos.dataPagamento | date: 'dd/MM/Y'}}</td>
             <td class="col-acoes">
-              <a pButton pRipple class="mr-2 mb-2" icon="pi pi-pencil" pTooltip="Editar" type="button"
+              <a pButton pRipple class="p-button-rounded mr-2 mb-2" icon="pi pi-pencil" pTooltip="Editar" type="button"
                 tooltipPosition="top" showDelay="300"></a>
-              <a pButton pRipple class="mr-2 mb-2" icon="pi pi-trash" pTooltip="Apagar" type="button"
+              <a pButton pRipple class="p-button-rounded mr-2 mb-2" icon="pi pi-trash" pTooltip="Apagar" type="button"
                 tooltipPosition="top" showDelay="300"></a>
             </td>
           </tr>
