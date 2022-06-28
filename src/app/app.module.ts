@@ -8,6 +8,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PessoasComponent } from './pessoas/pessoas.component'
 import { registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
+import { LancamentosFormComponent } from './lancamentos-form/lancamentos-form.component';
 
 registerLocaleData(ptBr, 'pt-BR');
 
@@ -16,7 +17,8 @@ registerLocaleData(ptBr, 'pt-BR');
     AppComponent,
     LancamentosPesquisaComponent,
     NavbarComponent,
-    PessoasComponent
+    PessoasComponent,
+    LancamentosFormComponent
   ],
   imports: [
     BrowserModule,

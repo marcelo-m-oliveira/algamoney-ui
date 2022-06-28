@@ -1,0 +1,54 @@
+<main>
+  <form>
+    <section class="grid">
+      <header class="col-12">
+        <h1>Novo Lançamento</h1>
+      </header>
+
+      <div class="col-6 md:col-3">
+        <h4 for="vencimento">Vencimento</h4>
+        <input id="vencimento" type="text" class="w-full" pInputText>
+      </div>
+
+      <div class="col-6 md:col-3">
+        <h4 for="recebimento">Recebimento</h4>
+        <input id="recebimento" type="text" class="w-full" pInputText>
+      </div>
+
+      <div class="col-12 md:col-9">
+        <h4 for="descricao">Descrição</h4>
+        <input id="descricao" type="text" class="w-full" pInputText>
+      </div>
+
+      <div class="col-12 md:col-3">
+        <h4 for="valor">valor</h4>
+        <input id="valor" placeholder="0,00" type="text" class="w-full" pInputText>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <h4 for="categoria">Categoria</h4>
+        <input id="categoria" type="text" class="w-full" pInputText>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <h4 for="pessoa">Pessoa</h4>
+        <input id="pessoa" type="text" class="w-full" pInputText>
+      </div>
+
+      <div class="col-12">
+        <h4 for="observacao">Observação</h4>
+        <textarea [rows]="5" [cols]="30" id="observacao" class="w-full" pInputTextarea></textarea>
+      </div>
+
+        <div class="col-4 md:col-2">
+          <button pButton pRipple type="submit" label="Salvar" class="w-full mr-2 mb-2" disabled></button>
+        </div>
+        <div class="col-4 md:col-2">
+          <button pButton pRipple type="button" label="Novo" class="p-button-info w-full mr-2 mb-2"></button>
+        </div>
+        <div class="col-4 md:col-2">
+          <a pButton pRipple type="button" label="Voltar" class="w-full mr-2 mb-2"></a>
+        </div>
+    </section>
+  </form>
+</main>
