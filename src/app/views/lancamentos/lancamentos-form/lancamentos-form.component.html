@@ -1,0 +1,66 @@
+<main>
+  <form>
+    <section>
+      <header class="col-12">
+        <h1>Novo Lançamento</h1>
+      </header>
+      <div class="grid">
+        <div class="p-fluid col-12 md:col-6">
+          <p-selectButton [options]="tipos" #tipo></p-selectButton>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="p-fluid col-6">
+          <h4 for="vencimento">Vencimento</h4>
+          <p-calendar id="vencimento" class="w-full" dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true">
+          </p-calendar>
+        </div>
+
+        <div class="p-fluid col-6">
+          <h4 for="recebimento">{{ tipo.value === 'TP1' ? 'Recebimento' : 'Pagamento' }}</h4>
+          <p-calendar id="recebimento" class="w-full" dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true">
+          </p-calendar>
+        </div>
+
+        <div class="col-12 md:col-9">
+          <h4 for="descricao">Descrição</h4>
+          <input id="descricao" type="text" class="w-full" pInputText>
+        </div>
+
+        <div class="p-fluid col-12 md:col-3">
+          <h4 for="valor">valor</h4>
+          <p-inputNumber id="valor" placeholder="0,00" mode="currency" currency="BRL" locale="pt-BR"
+                         styleClass="w-full">
+          </p-inputNumber>
+        </div>
+
+        <div class="col-12 md:col-6">
+          <h4 for="categoria">Categoria</h4>
+          <p-dropdown id="categoria" [options]="categorias" placeholder="Selecione a Categoria" styleClass="w-full"
+                      [showClear]="true" [filter]="true"></p-dropdown>
+        </div>
+
+        <div class="col-12 md:col-6">
+          <h4 for="pessoa">Pessoa</h4>
+          <p-dropdown id="pessoa" [options]="pessoas" placeholder="Selecione a Pessoa" styleClass="w-full"
+                      [showClear]="true" [filter]="true"></p-dropdown>
+        </div>
+
+        <div class="col-12">
+          <h4 for="observacao">Observação</h4>
+          <textarea [rows]="5" [cols]="30" id="observacao" class="w-full" pInputTextarea></textarea>
+        </div>
+
+        <div class="col-4 md:col-2">
+          <button pButton pRipple type="submit" label="Salvar" class="w-full mr-2 mb-2" disabled></button>
+        </div>
+        <div class="col-4 md:col-2">
+          <button pButton pRipple type="button" label="Novo" class="p-button-info w-full mr-2 mb-2"></button>
+        </div>
+        <div class="col-4 md:col-2">
+          <a pButton pRipple type="button" label="Voltar" class="w-full mr-2 mb-2"></a>
+        </div>
+      </div>
+    </section>
+  </form>
+</main>

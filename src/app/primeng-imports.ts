@@ -3,7 +3,12 @@ import { ButtonModule } from 'primeng/button'
 import { TableModule } from 'primeng/table'
 import { TooltipModule } from 'primeng/tooltip'
 import { RippleModule } from 'primeng/ripple'
-import {InputTextareaModule} from 'primeng/inputtextarea'
+import { InputTextareaModule } from 'primeng/inputtextarea'
+import { CalendarModule } from 'primeng/calendar'
+import { SelectButtonModule } from 'primeng/selectbutton'
+import { DropdownModule } from 'primeng/dropdown'
+import { InputNumberModule } from 'primeng/inputnumber'
+import { InputMaskModule } from 'primeng/inputmask'
 
 export const PRIMENG_IMPORTS: any = [
   InputTextModule,
@@ -11,5 +16,10 @@ export const PRIMENG_IMPORTS: any = [
   TableModule,
   TooltipModule,
   RippleModule,
-  InputTextareaModule
+  InputTextareaModule,
+  CalendarModule,
+  SelectButtonModule,
+  DropdownModule,
+  InputNumberModule,
+  InputMaskModule
 ]
