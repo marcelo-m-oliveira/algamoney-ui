@@ -10,6 +10,7 @@ import { registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
 import { LancamentosFormComponent } from './views/lancamentos/lancamentos-form/lancamentos-form.component';
 import { PessoasFormComponent } from './views/pessoas/pessoas-form/pessoas-form.component';
+import {FormsModule} from "@angular/forms";
 
 registerLocaleData(ptBr, 'pt-BR');
 
@@ -25,6 +26,7 @@ registerLocaleData(ptBr, 'pt-BR');
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     PRIMENG_IMPORTS
   ],
   providers: [
