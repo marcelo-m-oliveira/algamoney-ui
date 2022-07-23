@@ -1,19 +1,23 @@
 <main>
-  <form>
+  <form #lancamentoForm="ngForm" autocomplete="off">
     <section>
       <header class="col-12">
         <h1>Novo Lançamento</h1>
       </header>
+
       <div class="grid">
         <div class="p-fluid col-12 md:col-6">
           <p-selectButton [options]="tipos" #tipo></p-selectButton>
         </div>
       </div>
+
       <div class="grid">
         <div class="p-fluid col-6">
           <h4 for="vencimento">Vencimento</h4>
-          <p-calendar id="vencimento" class="w-full" dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true">
+          <p-calendar id="vencimento" name="vencimento" class="w-full" dateFormat="dd/mm/yy"
+                      [showIcon]="true" [readonlyInput]="true" [required]="true" ngModel #vencimento="ngModel">
           </p-calendar>
+          <app-message [control]="vencimento.control" error="required" text="Informe uma data de vencimento"></app-message>
         </div>
 
         <div class="p-fluid col-6">
@@ -25,31 +29,31 @@
         <div class="col-12 md:col-9">
           <h4 for="descricao">Descrição</h4>
           <input id="descricao" name="descricao" type="text" class="w-full" pInputText
-                 ngModel #descricao="ngModel" required minlength="5">
-          <p-message *ngIf="descricao.hasError('required') && descricao.dirty"
-                     severity="error" text="Informe uma descrição"></p-message>
-          <p-message *ngIf="descricao.hasError('minlength') && descricao.dirty"
-                     severity="error" text="Mínimo de {{ descricao.errors?.['minlength'].requiredLength }} caracteres."></p-message>
-
+                 ngModel #descricao="ngModel" [required]="true" minlength="5">
+          <app-message [control]="descricao.control" error="required" text="Informe uma descrição"></app-message>
+          <app-message [control]="descricao.control" error="minlength" text="Mínimo de {{ descricao.errors?.['minlength']?.requiredLength }} caracteres."></app-message>
         </div>
 
         <div class="p-fluid col-12 md:col-3">
-          <h4 for="valor">valor</h4>
+          <h4 for="valor">Valor</h4>
           <p-inputNumber id="valor" name="valor" placeholder="0,00" mode="currency" currency="BRL" locale="pt-BR"
-                         styleClass="w-full" ngModel>
+                         styleClass="w-full" ngModel [required]="true" #valor="ngModel">
           </p-inputNumber>
+          <app-message [control]="valor.control" error="required" text="Informe um valor"></app-message>
         </div>
 
         <div class="col-12 md:col-6">
           <h4 for="categoria">Categoria</h4>
-          <p-dropdown id="categoria" [options]="categorias" placeholder="Selecione a Categoria" styleClass="w-full"
-                      [showClear]="true" [filter]="true"></p-dropdown>
+          <p-dropdown id="categoria" name="categoria" [options]="categorias" placeholder="Selecione uma Categoria" styleClass="w-full"
+                      [showClear]="true" [filter]="true" ngModel [required]="true" #categoria="ngModel"></p-dropdown>
+          <app-message [control]="categoria.control" error="required" text="Informe uma categoria"></app-message>
         </div>
 
         <div class="col-12 md:col-6">
           <h4 for="pessoa">Pessoa</h4>
-          <p-dropdown id="pessoa" [options]="pessoas" placeholder="Selecione a Pessoa" styleClass="w-full"
-                      [showClear]="true" [filter]="true"></p-dropdown>
+          <p-dropdown id="pessoa" name="pessoa" [options]="pessoas" placeholder="Selecione uma Pessoa" styleClass="w-full"
+                      [showClear]="true" [filter]="true" ngModel [required]="true" #pessoa="ngModel"></p-dropdown>
+          <app-message [control]="pessoa.control" error="required" text="Informe uma pessoa"></app-message>
         </div>
 
         <div class="col-12">
@@ -58,7 +62,7 @@
         </div>
 
         <div class="col-4 md:col-2">
-          <button pButton pRipple type="submit" label="Salvar" class="w-full mr-2 mb-2" disabled></button>
+          <button pButton pRipple type="submit" label="Salvar" class="w-full mr-2 mb-2" [disabled]="lancamentoForm.invalid"></button>
         </div>
         <div class="col-4 md:col-2">
           <button pButton pRipple type="button" label="Novo" class="p-button-info w-full mr-2 mb-2"></button>

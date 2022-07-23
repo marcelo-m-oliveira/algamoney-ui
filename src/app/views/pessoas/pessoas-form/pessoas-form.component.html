@@ -1,5 +1,5 @@
 <main>
-  <form>
+  <form #pessoaForm="ngForm" autocomplete="off">
     <section>
       <header class="col-12">
         <h1>Nova Pessoa</h1>
@@ -8,17 +8,24 @@
       <div class="grid">
         <div class="col-12">
           <h4 for="nome">Nome</h4>
-          <input id="nome" type="text" class="w-full" pInputText>
+          <input id="nome" name="nome" type="text" class="w-full" pInputText
+                 ngModel #nome="ngModel" [required]="true" minlength="5">
+          <app-message [control]="nome.control" error="required" text="Informe o nome"></app-message>
+          <app-message [control]="nome.control" error="minlength" text="Mínimo de {{ nome.errors?.['minlength']?.requiredLength }} caracteres."></app-message>
         </div>
 
         <div class="col-12 md:col-9">
           <h4 for="logradouro">Logradouro</h4>
-          <input id="logradouro" type="text" class="w-full" pInputText>
+          <input id="logradouro" name="logradouro" type="text" class="w-full" pInputText
+                 ngModel #logradouro="ngModel" [required]="true">
+          <app-message [control]="logradouro.control" error="required" text="Informe o logradouro"></app-message>
         </div>
 
         <div class="col-12 md:col-3">
           <h4 for="numero">Número</h4>
-          <input id="numero" type="text" class="w-full" pInputText>
+          <input id="numero" name="numero" type="text" class="w-full" pInputText
+                 ngModel #numero="ngModel" [required]="true">
+          <app-message [control]="numero.control" error="required" text="Informe o número"></app-message>
         </div>
 
         <div class="col-12 md:col-4">
@@ -28,26 +35,34 @@
 
         <div class="col-12 md:col-4">
           <h4 for="bairro">Bairro</h4>
-          <input id="bairro" type="text" class="w-full" pInputText>
+          <input id="bairro" name="bairro" type="text" class="w-full" pInputText
+                 ngModel #bairro="ngModel" [required]="true">
+          <app-message [control]="bairro.control" error="required" text="Informe o Bairro"></app-message>
         </div>
 
         <div class="col-12 md:col-4">
           <h4 for="CEP">CEP</h4>
-          <p-inputMask id="CEP" type="text" styleClass="w-full" mask="99.999-999"></p-inputMask>
+          <p-inputMask id="CEP" name="CEP" styleClass="w-full" mask="99.999-999"
+                       ngModel #CEP="ngModel" [required]="true"></p-inputMask>
+          <app-message [control]="CEP.control" error="required" text="Informe o CEP"></app-message>
         </div>
 
         <div class="col-12 md:col-6">
           <h4 for="cidade">Cidade</h4>
-          <input id="cidade" type="text" class="w-full" pInputText>
+          <input id="cidade" name="cidade" type="text" class="w-full" pInputText
+                 ngModel #cidade="ngModel" [required]="true">
+          <app-message [control]="cidade.control" error="required" text="Informe a Cidade"></app-message>
         </div>
 
         <div class="col-12 md:col-6">
           <h4 for="estado">Estado</h4>
-          <input id="estado" type="text" class="w-full" pInputText>
+          <input id="estado" name="estado" type="text" class="w-full" pInputText
+                 ngModel #estado="ngModel" [required]="true">
+          <app-message [control]="estado.control" error="required" text="Informe o Estado"></app-message>
         </div>
 
         <div class="col-4 md:col-2">
-          <button pButton pRipple type="submit" label="Salvar" class="w-full mr-2 mb-2" disabled></button>
+          <button pButton pRipple type="submit" label="Salvar" class="w-full mr-2 mb-2" [disabled]="pessoaForm.invalid"></button>
         </div>
         <div class="col-4 md:col-2">
           <button pButton pRipple type="button" label="Novo" class="p-button-info w-full mr-2 mb-2"></button>

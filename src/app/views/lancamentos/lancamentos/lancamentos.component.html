@@ -1,0 +1,31 @@
+<main>
+  <section class="grid">
+    <header class="col-12">
+      <h1>Lançamentos</h1>
+    </header>
+
+    <div class="col-12">
+      <h4 for="descricao">Descrição</h4>
+      <input id="descricao" name="descricao" type="text" class="w-full" pInputText>
+    </div>
+
+    <div class="col-12">
+      <h4 for="vencimento" style="display: block">Vencimento</h4>
+      <input id="vencimento" name="vencimento" type="text" pInputText style="width: 95px">
+      <label for="ate"> Até </label>
+      <input id="ate" name="ate" type="text" pInputText style="width: 95px">
+    </div>
+
+    <div class="field col-12">
+      <button pButton type="submit" label="Pesquisar"></button>
+    </div>
+  </section>
+
+  <section class="grid">
+    <app-lancamentos-grid class="col-12" [lancamentos]="lancamentos"></app-lancamentos-grid>
+
+    <div class="field col-12">
+      <a pButton type="submit" label="Novo lançamento"></a>
+    </div>
+  </section>
+</main>

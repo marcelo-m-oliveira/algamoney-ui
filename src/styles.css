@@ -32,3 +32,8 @@ body {
   color: #ffffff;
   margin: 0;
 }
+
+.remove-decoration {
+  color: #fff;
+  text-decoration: none;
+}
