@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-lancamentos-form',
   templateUrl: './lancamentos-form.component.html',
 })
-export class LancamentosFormComponent implements OnInit {
+export class LancamentosFormComponent {
 
   tipos = [
     { label: 'Receita', value: 'TP1' },
@@ -23,8 +23,5 @@ export class LancamentosFormComponent implements OnInit {
   ]
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
