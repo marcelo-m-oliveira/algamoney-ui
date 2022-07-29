@@ -1,31 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import {LancamentoFilter, LancamentoService} from "../lancamento.service"
 
 @Component({
   selector: 'app-lancamentos',
   templateUrl: './lancamentos.component.html',
 })
-export class LancamentosComponent {
+export class LancamentosComponent implements OnInit {
 
-  lancamentos = [
-    {
-      tipo: 'DESPESA', descricao: 'Compra de um celular', dataVencimento: new Date(2022, 6, 30),
-      dataPagamento: new Date(2022, 6, 10), valor: 1900, pessoa: 'SAMSUNG'
-    },
-    {
-      tipo: 'RECEITA', descricao: 'Venda de software', dataVencimento: new Date(2022, 7 , 10),
-      dataPagamento: new Date(2022, 7, 1), valor: 3000, pessoa: 'IMAGE2'
-    },
-    {
-      tipo: 'DESPESA', descricao: 'Internet', dataVencimento: new Date(2022, 6, 22),
-      dataPagamento: new Date(2022, 6, 10), valor: 80, pessoa: 'Velho ponto net'
-    },
-    {
-      tipo: 'DESPESA', descricao: 'Namoro', dataVencimento: new Date(2022, 6, 12),
-      dataPagamento: new Date(2022, 6, 11), valor: 1200, pessoa: 'Kamila'
-    },
-    {
-      tipo: 'RECEITA', descricao: 'Socorro de Jesus', dataVencimento: new Date(2022, 7, 10),
-      dataPagamento: new Date(2022, 6, 30), valor: 4000, pessoa: 'Jesus'
-    },
-  ]
+
+  constructor(
+    private lancamentoService: LancamentoService
+  ) {}
+
+  descricao?: string
+  dataVencimentoDe?: Date
+  dataVencimentoAte?: Date
+  lancamentos = []
+
+  ngOnInit(): void {
+    this.visualizar()
+  }
+
+  visualizar() {
+    const filtro: LancamentoFilter = {
+      descricao: this.descricao,
+      dataVencimentoDe: this.dataVencimentoDe,
+      dataVencimentoAte: this.dataVencimentoAte
+    }
+    this.lancamentoService.visualizar(filtro)
+      .then(lancamentos => this.lancamentos = lancamentos)
+  }
 }

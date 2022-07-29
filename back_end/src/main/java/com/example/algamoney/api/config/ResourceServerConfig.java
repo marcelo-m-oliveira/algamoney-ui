@@ -33,7 +33,7 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        
+
         http.authorizeRequests()
                 .antMatchers("/categorias").permitAll()
                 .anyRequest().authenticated()
@@ -50,10 +50,10 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter{
 
         return NimbusJwtDecoder.withSecretKey(secretKey).build();
     }
-    
+
     @Bean
     @Override
-    protected AuthenticationManager authenticationManager() throws Exception {        
+    protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
 
@@ -61,7 +61,7 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter{
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
     private JwtAuthenticationConverter jwtAuthenticationConverter() {
 		JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
 		jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwt -> {
