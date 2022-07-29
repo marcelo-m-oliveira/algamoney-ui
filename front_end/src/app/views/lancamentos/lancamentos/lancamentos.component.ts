@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { LancamentoService } from "../lancamento.service"
+import {LancamentoFilter, LancamentoService} from "../lancamento.service"
 
 @Component({
   selector: 'app-lancamentos',
@@ -7,10 +7,14 @@ import { LancamentoService } from "../lancamento.service"
 })
 export class LancamentosComponent implements OnInit {
 
+
   constructor(
     private lancamentoService: LancamentoService
   ) {}
 
+  descricao?: string
+  dataVencimentoDe?: Date
+  dataVencimentoAte?: Date
   lancamentos = []
 
   ngOnInit(): void {
@@ -18,6 +22,12 @@ export class LancamentosComponent implements OnInit {
   }
 
   visualizar() {
-    this.lancamentoService.visualizar().then(lancamentos => this.lancamentos = lancamentos)
+    const filtro: LancamentoFilter = {
+      descricao: this.descricao,
+      dataVencimentoDe: this.dataVencimentoDe,
+      dataVencimentoAte: this.dataVencimentoAte
+    }
+    this.lancamentoService.visualizar(filtro)
+      .then(lancamentos => this.lancamentos = lancamentos)
   }
 }

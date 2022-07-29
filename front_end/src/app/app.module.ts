@@ -7,10 +7,13 @@ import {CardModule} from "primeng/card";
 
 import { CoreModule } from "./core/core.module"
 
+import { LancamentoService } from "./views/lancamentos/lancamento.service"
+
 import { LancamentosModule } from "./views/lancamentos/lancamentos.module"
 import { PessoasModule } from "./views/pessoas/pessoas.module"
 import { AppComponent } from './app.component'
-import {LancamentoService} from "./views/lancamentos/lancamento.service";
+
+
 
 @NgModule({
   declarations: [
