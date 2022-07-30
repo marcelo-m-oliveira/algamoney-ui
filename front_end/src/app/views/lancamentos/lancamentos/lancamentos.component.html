@@ -10,14 +10,14 @@
         [(ngModel)]="descricao">
       </div>
 
-      <div class="col-12">
-        <h4 for="dataVencimentoDe" style="display: block">Vencimento</h4>
-<!--        <input id="vencimento" name="vencimento" type="text" pInputText style="width: 95px">-->
+      <div class="col-12 md:col-6 p-fluid">
+        <h4 for="dataVencimentoDe">Vencimento</h4>
         <p-calendar id="dataVencimentoDe" name="dataVencimentoDe" class="w-full" dateFormat="dd/mm/yy"
                     [showIcon]="true" [readonlyInput]="true" [(ngModel)]="dataVencimentoDe">
         </p-calendar>
-        <label for="dataVencimentoAte"> Até </label>
-<!--        <input id="ate" name="ate" type="text" pInputText style="width: 95px">-->
+      </div>
+      <div class="col-12 md:col-6 p-fluid">
+        <h4 for="dataVencimentoAte"> Até </h4>
         <p-calendar id="dataVencimentoAte" name="dataVencimentoAte" class="w-full" dateFormat="dd/mm/yy"
                     [showIcon]="true" [readonlyInput]="true" [(ngModel)]="dataVencimentoAte">
         </p-calendar>
