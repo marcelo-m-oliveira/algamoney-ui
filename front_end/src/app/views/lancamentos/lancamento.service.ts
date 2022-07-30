@@ -3,10 +3,12 @@ import { Injectable } from '@angular/core'
 import { DatePipe } from "@angular/common"
 
 
-export interface LancamentoFilter {
+export class LancamentoFilter {
   descricao?: string
   dataVencimentoDe?: Date
   dataVencimentoAte?: Date
+  pagina: number = 0
+  itensPorPagina: number = 5
 }
 
 @Injectable({
@@ -16,31 +18,43 @@ export interface LancamentoFilter {
 export class LancamentoService {
 
   lancamentosUrl = 'http://localhost:8080/lancamentos'
+  headers = new HttpHeaders().append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
 
   constructor(
     private http: HttpClient,
     private datePipe: DatePipe
   ) { }
 
-  visualizar(filtro: LancamentoFilter): Promise<any> {
+  pesquisar(filtro: LancamentoFilter): Promise<any> {
+    this.headers
+
     let params = new HttpParams()
-    const headers = new HttpHeaders().
-    append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
+      .set('page', filtro.pagina)
+      .set('size', filtro.itensPorPagina)
 
     if (filtro.descricao) {
-      params = params.set('descricao', filtro.descricao);
+      params = params.set('descricao', filtro.descricao)
     }
 
     if (filtro.dataVencimentoDe) {
-      params = params.set('dataVencimentoDe', this.datePipe.transform(filtro.dataVencimentoDe, 'yyyy-MM-dd')!);
+      params = params.set('dataVencimentoDe', this.datePipe.transform(filtro.dataVencimentoDe, 'yyyy-MM-dd')!)
     }
 
     if (filtro.dataVencimentoAte) {
-      params = params.set('dataVencimentoAte', this.datePipe.transform(filtro.dataVencimentoAte, 'yyyy-MM-dd')!);
+      params = params.set('dataVencimentoAte', this.datePipe.transform(filtro.dataVencimentoAte, 'yyyy-MM-dd')!)
     }
 
-    return this.http.get(`${this.lancamentosUrl}?resumo`, { headers, params })
-      .toPromise().then((response : any) => response['content']);
+    return this.http.get(`${this.lancamentosUrl}?resumo`, { headers: this.headers, params })
+      .toPromise().then((response : any) => {
+        const lancamentos = response['content']
+
+        const resultado = {
+          lancamentos,
+          total: response['totalElements']
+        }
+
+        return resultado
+      })
 
   }
 }

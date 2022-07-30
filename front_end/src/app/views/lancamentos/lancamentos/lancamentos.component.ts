@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import {LancamentoFilter, LancamentoService} from "../lancamento.service"
+import { LancamentoFilter, LancamentoService } from "../lancamento.service"
 
 @Component({
   selector: 'app-lancamentos',
@@ -7,27 +7,30 @@ import {LancamentoFilter, LancamentoService} from "../lancamento.service"
 })
 export class LancamentosComponent implements OnInit {
 
+  lancamentoFilter: LancamentoFilter = new LancamentoFilter()
+  lancamentos: any[] = []
+  totalRegistros: number = 0
 
   constructor(
     private lancamentoService: LancamentoService
   ) {}
 
-  descricao?: string
-  dataVencimentoDe?: Date
-  dataVencimentoAte?: Date
-  lancamentos = []
-
   ngOnInit(): void {
-    this.visualizar()
   }
 
-  visualizar() {
-    const filtro: LancamentoFilter = {
-      descricao: this.descricao,
-      dataVencimentoDe: this.dataVencimentoDe,
-      dataVencimentoAte: this.dataVencimentoAte
-    }
-    this.lancamentoService.visualizar(filtro)
-      .then(lancamentos => this.lancamentos = lancamentos)
+
+  aoMudarPagina(event: any): void {
+    const pagina = event!.first! / event!.rows!
+    this.pesquisar(pagina)
   }
+
+  pesquisar(pagina: number = 0): void {
+    this.lancamentoFilter.pagina = pagina
+    this.lancamentoService.pesquisar(this.lancamentoFilter)
+      .then((response: any) => {
+         this.totalRegistros = response.total
+         this.lancamentos = response.lancamentos
+      })
+  }
+
 }

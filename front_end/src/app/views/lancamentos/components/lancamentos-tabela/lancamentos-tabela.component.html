@@ -1,4 +1,6 @@
-<p-table [value]="lancamentos" [paginator]="true" [rows]="5" [responsive]="true" [showCurrentPageReport]="true">
+<p-table [value]="lancamentos" [responsive]="true" [paginator]="true" [showCurrentPageReport]="true"
+         [rows]="lancamentoFilter.itensPorPagina" [lazy]="true" [totalRecords]="totalRegistros" [scrollable]="true"
+         (onLazyLoad)="aoMudarPagina($event)" currentPageReportTemplate="{currentPage} de {totalPages}">
   <ng-template pTemplate="header">
     <tr>
       <th>Tipo</th>
@@ -32,7 +34,7 @@
 
   <ng-template pTemplate="emptymessage">
     <tr>
-      <td colspan="6">
+      <td>
         Nenhum lançamento encontrado
       </td>
     </tr>

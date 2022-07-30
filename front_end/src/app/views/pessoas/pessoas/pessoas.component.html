@@ -1,24 +1,29 @@
 <main>
-  <section class="grid">
-    <header class="col-12">
-      <h1>Pessoas</h1>
-    </header>
+  <form autocomplete="off" (ngSubmit)="pesquisar()">
+    <section class="grid">
+      <header class="col-12">
+        <h1>Pessoas</h1>
+      </header>
 
-    <div class="col-12">
-      <h4 for="descricao">Nome</h4>
-      <input id="descricao" type="text" class="w-full" pInputText>
-    </div>
+      <div class="col-12">
+        <h4 for="nome">Nome</h4>
+        <input id="nome" name="nome" type="text" class="w-full" pInputText [(ngModel)]="pessoasFilter.nome">
+      </div>
 
-    <div class="field col-12">
-      <button pButton type="submit" label="Pesquisar"></button>
-    </div>
-  </section>
+      <div class="field col-12">
+        <button pButton type="submit" label="Pesquisar"></button>
+      </div>
+    </section>
 
-  <section class="grid">
-    <app-pessoas-tabela class="col-12" [pessoas]="pessoas"></app-pessoas-tabela>
+    <section class="grid">
+      <div class="col-12">
+        <app-pessoas-tabela (onLazyLoad)="aoMudarPagina($event)" [pessoas]="pessoas" [pessoasFilter]="pessoasFilter"
+                            [totalRegistros]="totalRegistros"></app-pessoas-tabela>
+      </div>
 
-    <div class="field col-12">
-      <a pButton type="submit" label="Novo Pessoa"></a>
-    </div>
-  </section>
+      <div class="field col-12">
+        <a pButton type="submit" label="Novo Pessoa"></a>
+      </div>
+    </section>
+  </form>
 </main>

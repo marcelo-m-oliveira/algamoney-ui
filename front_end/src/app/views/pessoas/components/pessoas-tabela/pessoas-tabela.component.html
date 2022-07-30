@@ -1,4 +1,6 @@
-<p-table [value]="pessoas" [paginator]="true" [rows]="5" [responsive]="true" [showCurrentPageReport]="true">
+<p-table [value]="pessoas" [responsive]="true" [paginator]="true" [showCurrentPageReport]="true"
+         [rows]="pessoasFilter.itensPorPagina" [lazy]="true" [totalRecords]="totalRegistros" [scrollable]="true"
+         (onLazyLoad)="aoMudarPagina($event)" currentPageReportTemplate="{currentPage} de {totalPages}">
   <ng-template pTemplate="header">
     <tr>
       <th>Nome</th>
@@ -10,18 +12,26 @@
   </ng-template>
   <ng-template pTemplate="body" let-pessoa>
     <tr>
-      <td>{{pessoa.pessoa}}</td>
-      <td>{{pessoa.cidade}}</td>
-      <td>{{pessoa.estado}}</td>
+      <td>{{pessoa.nome}}</td>
+      <td>{{pessoa.endereco.cidade}}</td>
+      <td>{{pessoa.endereco.estado}}</td>
       <td>
-        <a href="#" class="remove-decoration" [pTooltip]="pessoa.status ? 'Desativar' : 'Ativar'"
-           tooltipPosition="top" showDelay="300">{{pessoa.status ? 'ATIVO' : 'INATIVO'}}</a>
+        <a href="#" class="remove-decoration" [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'"
+           tooltipPosition="top" showDelay="300">{{pessoa.ativo ? 'ATIVO' : 'INATIVO'}}</a>
       </td>
       <td class="col-acoes">
         <a pButton pRipple class="p-button-rounded mr-2 mb-2" icon="pi pi-pencil" pTooltip="Editar" type="button"
            tooltipPosition="top" showDelay="300"></a>
         <a pButton pRipple class="p-button-rounded mr-2 mb-2" icon="pi pi-trash" pTooltip="Apagar" type="button"
            tooltipPosition="top" showDelay="300"></a>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td>
+        Nenhum lançamento encontrado
       </td>
     </tr>
   </ng-template>
