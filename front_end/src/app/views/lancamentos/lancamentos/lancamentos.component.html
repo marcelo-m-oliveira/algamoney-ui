@@ -1,5 +1,5 @@
 <main>
-  <form autocomplete="off" (ngSubmit)="visualizar()">
+  <form autocomplete="off" (ngSubmit)="pesquisar()">
     <section class="grid">
       <header class="col-12">
         <h1>Lançamentos</h1>
@@ -7,19 +7,19 @@
       <div class="col-12">
         <h4 for="descricao">Descrição</h4>
         <input id="descricao" name="descricao" type="text" class="w-full" pInputText
-        [(ngModel)]="descricao">
+               [(ngModel)]="lancamentoFilter.descricao">
       </div>
 
       <div class="col-12 md:col-6 p-fluid">
         <h4 for="dataVencimentoDe">Vencimento</h4>
         <p-calendar id="dataVencimentoDe" name="dataVencimentoDe" class="w-full" dateFormat="dd/mm/yy"
-                    [showIcon]="true" [readonlyInput]="true" [(ngModel)]="dataVencimentoDe">
+                    [showIcon]="true" [readonlyInput]="true" [(ngModel)]="lancamentoFilter.dataVencimentoDe">
         </p-calendar>
       </div>
       <div class="col-12 md:col-6 p-fluid">
         <h4 for="dataVencimentoAte"> Até </h4>
         <p-calendar id="dataVencimentoAte" name="dataVencimentoAte" class="w-full" dateFormat="dd/mm/yy"
-                    [showIcon]="true" [readonlyInput]="true" [(ngModel)]="dataVencimentoAte">
+                    [showIcon]="true" [readonlyInput]="true" [(ngModel)]="lancamentoFilter.dataVencimentoAte">
         </p-calendar>
       </div>
 
@@ -29,8 +29,10 @@
     </section>
 
     <section class="grid">
-      <app-lancamentos-tabela class="col-12" [lancamentos]="lancamentos"></app-lancamentos-tabela>
-
+      <div class="col-12">
+        <app-lancamentos-tabela (onLazyLoad)="aoMudarPagina($event)" [lancamentos]="lancamentos" [lancamentoFilter]="lancamentoFilter"
+                                [totalRegistros]="totalRegistros"></app-lancamentos-tabela>
+      </div>
       <div class="field col-12">
         <a pButton type="submit" label="Novo lançamento"></a>
       </div>

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core'
-import {LancamentoFilter, LancamentoService} from "../lancamento.service"
+import {Component, EventEmitter, OnInit, Output} from '@angular/core'
+import { LancamentoFilter, LancamentoService } from "../lancamento.service"
+import {LazyLoadEvent} from "primeng/api";
+
 
 @Component({
   selector: 'app-lancamentos',
@@ -7,27 +9,32 @@ import {LancamentoFilter, LancamentoService} from "../lancamento.service"
 })
 export class LancamentosComponent implements OnInit {
 
+  lancamentoFilter: LancamentoFilter = new LancamentoFilter()
+  lancamentos: any[] = []
+  totalRegistros: number = 0
+  @Output() onLazyLoad = new EventEmitter();
 
   constructor(
     private lancamentoService: LancamentoService
   ) {}
 
-  descricao?: string
-  dataVencimentoDe?: Date
-  dataVencimentoAte?: Date
-  lancamentos = []
-
   ngOnInit(): void {
-    this.visualizar()
   }
 
-  visualizar() {
-    const filtro: LancamentoFilter = {
-      descricao: this.descricao,
-      dataVencimentoDe: this.dataVencimentoDe,
-      dataVencimentoAte: this.dataVencimentoAte
-    }
-    this.lancamentoService.visualizar(filtro)
-      .then(lancamentos => this.lancamentos = lancamentos)
+
+  aoMudarPagina(event: any): void {
+    const pagina = event.first / event.rows
+    this.pesquisar(pagina)
+    console.log(pagina)
   }
+
+  pesquisar(pagina: number = 0): void {
+    this.lancamentoFilter.pagina = pagina
+    this.lancamentoService.pesquisar(this.lancamentoFilter)
+      .then((response: any) => {
+         this.totalRegistros = response.total
+         this.lancamentos = response.lancamentos
+      })
+  }
+
 }

@@ -3,10 +3,12 @@ import { Injectable } from '@angular/core'
 import { DatePipe } from "@angular/common"
 
 
-export interface LancamentoFilter {
+export class LancamentoFilter {
   descricao?: string
   dataVencimentoDe?: Date
   dataVencimentoAte?: Date
+  pagina: number = 0
+  itensPorPagina: number = 5
 }
 
 @Injectable({
@@ -22,10 +24,13 @@ export class LancamentoService {
     private datePipe: DatePipe
   ) { }
 
-  visualizar(filtro: LancamentoFilter): Promise<any> {
-    let params = new HttpParams()
+  pesquisar(filtro: LancamentoFilter): Promise<any> {
     const headers = new HttpHeaders().
     append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
+
+    let params = new HttpParams()
+      .set('page', filtro.pagina)
+      .set('size', filtro.itensPorPagina);
 
     if (filtro.descricao) {
       params = params.set('descricao', filtro.descricao);
@@ -40,7 +45,16 @@ export class LancamentoService {
     }
 
     return this.http.get(`${this.lancamentosUrl}?resumo`, { headers, params })
-      .toPromise().then((response : any) => response['content']);
+      .toPromise().then((response : any) => {
+        const lancamentos = response['content'];
+
+        const resultado = {
+          lancamentos,
+          total: response['totalElements']
+        };
+
+        return resultado;
+      });
 
   }
 }
