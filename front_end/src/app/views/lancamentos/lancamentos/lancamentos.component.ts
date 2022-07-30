@@ -1,7 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { LancamentoFilter, LancamentoService } from "../lancamento.service"
-import {LazyLoadEvent} from "primeng/api";
-
 
 @Component({
   selector: 'app-lancamentos',
@@ -12,7 +10,6 @@ export class LancamentosComponent implements OnInit {
   lancamentoFilter: LancamentoFilter = new LancamentoFilter()
   lancamentos: any[] = []
   totalRegistros: number = 0
-  @Output() onLazyLoad = new EventEmitter();
 
   constructor(
     private lancamentoService: LancamentoService
@@ -23,9 +20,8 @@ export class LancamentosComponent implements OnInit {
 
 
   aoMudarPagina(event: any): void {
-    const pagina = event.first / event.rows
+    const pagina = event!.first! / event!.rows!
     this.pesquisar(pagina)
-    console.log(pagina)
   }
 
   pesquisar(pagina: number = 0): void {

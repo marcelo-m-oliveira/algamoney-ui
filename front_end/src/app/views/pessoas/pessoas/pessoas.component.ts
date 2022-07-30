@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
+import { PessoaService, PessoasFilter } from "../pessoa.service"
 
 @Component({
   selector: 'app-pessoas',
@@ -6,21 +7,28 @@ import { Component } from '@angular/core';
 })
 export class PessoasComponent {
 
-  pessoas = [
-    {
-      pessoa: 'Marcelo Oliveira', cidade: 'Salvador', estado: 'BA', status: true,
-    },
-    {
-      pessoa: 'Kamila Kelly', cidade: 'Feira de Santana', estado: 'BA', status: true,
-    },
-    {
-      pessoa: 'Batata', cidade: 'São Paulo', estado: 'SP', status: false,
-    },
-    {
-      pessoa: 'Amanda', cidade: 'Brasilia', estado: 'DF', status: true,
-    },
-    {
-      pessoa: 'Goku', cidade: 'Belo Horizonte', estado: 'BH', status: false,
-    },
-  ]
+  pessoasFilter: PessoasFilter = new PessoasFilter()
+  pessoas: any[] = []
+  totalRegistros: number = 0
+
+  constructor(
+    private pessoaService: PessoaService
+  ) {}
+
+  ngOnInit(): void {
+  }
+
+  aoMudarPagina(event: any): void {
+    const pagina = event!.first! / event!.rows!
+    this.pesquisar(pagina)
+  }
+
+  pesquisar(pagina: number = 0): void {
+    this.pessoasFilter.pagina = pagina
+    this.pessoaService.pesquisar(this.pessoasFilter)
+      .then((response: any) => {
+        this.totalRegistros = response.total
+        this.pessoas = response.pessoas
+      })
+  }
 }

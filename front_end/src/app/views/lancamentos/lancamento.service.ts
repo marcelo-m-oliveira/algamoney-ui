@@ -18,6 +18,7 @@ export class LancamentoFilter {
 export class LancamentoService {
 
   lancamentosUrl = 'http://localhost:8080/lancamentos'
+  headers = new HttpHeaders().append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
 
   constructor(
     private http: HttpClient,
@@ -25,36 +26,35 @@ export class LancamentoService {
   ) { }
 
   pesquisar(filtro: LancamentoFilter): Promise<any> {
-    const headers = new HttpHeaders().
-    append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
+    this.headers
 
     let params = new HttpParams()
       .set('page', filtro.pagina)
-      .set('size', filtro.itensPorPagina);
+      .set('size', filtro.itensPorPagina)
 
     if (filtro.descricao) {
-      params = params.set('descricao', filtro.descricao);
+      params = params.set('descricao', filtro.descricao)
     }
 
     if (filtro.dataVencimentoDe) {
-      params = params.set('dataVencimentoDe', this.datePipe.transform(filtro.dataVencimentoDe, 'yyyy-MM-dd')!);
+      params = params.set('dataVencimentoDe', this.datePipe.transform(filtro.dataVencimentoDe, 'yyyy-MM-dd')!)
     }
 
     if (filtro.dataVencimentoAte) {
-      params = params.set('dataVencimentoAte', this.datePipe.transform(filtro.dataVencimentoAte, 'yyyy-MM-dd')!);
+      params = params.set('dataVencimentoAte', this.datePipe.transform(filtro.dataVencimentoAte, 'yyyy-MM-dd')!)
     }
 
-    return this.http.get(`${this.lancamentosUrl}?resumo`, { headers, params })
+    return this.http.get(`${this.lancamentosUrl}?resumo`, { headers: this.headers, params })
       .toPromise().then((response : any) => {
-        const lancamentos = response['content'];
+        const lancamentos = response['content']
 
         const resultado = {
           lancamentos,
           total: response['totalElements']
-        };
+        }
 
-        return resultado;
-      });
+        return resultado
+      })
 
   }
 }

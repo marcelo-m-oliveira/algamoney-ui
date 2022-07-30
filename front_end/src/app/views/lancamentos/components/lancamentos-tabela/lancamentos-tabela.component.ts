@@ -1,12 +1,10 @@
-import {Component, EventEmitter, Input, Output } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { LancamentoFilter } from "../../lancamento.service"
 import { LazyLoadEvent } from "primeng/api"
 
 @Component({
   selector: 'app-lancamentos-tabela',
   templateUrl: './lancamentos-tabela.component.html',
-  styles: [
-  ]
 })
 export class LancamentosTabelaComponent {
 
