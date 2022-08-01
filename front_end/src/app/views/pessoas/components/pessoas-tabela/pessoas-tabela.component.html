@@ -1,33 +1,42 @@
-<p-table [value]="pessoas" [responsive]="true" [paginator]="true" [showCurrentPageReport]="true"
+<p-table [columns]="cols" [value]="pessoas" [responsive]="true" [paginator]="true" [showCurrentPageReport]="true"
          [rows]="pessoasFilter.itensPorPagina" [lazy]="true" [totalRecords]="totalRegistros" [scrollable]="true"
          (onLazyLoad)="aoMudarPagina($event)" currentPageReportTemplate="{currentPage} de {totalPages}">
-  <ng-template pTemplate="header">
+  <ng-template pTemplate="header" let-columns>
     <tr>
-      <th>Nome</th>
-      <th>Cidade</th>
-      <th>Estado</th>
-      <th>Status</th>
-      <th>Ações</th>
+      <th scope="col" *ngFor="let col of columns" [pSortableColumn]="col.sortField">
+        {{ col.header }}
+        <p-sortIcon [field]="col.field"></p-sortIcon>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-pessoa>
+  <ng-template pTemplate="body" let-pessoa let-columns="columns">
     <tr>
-      <td>{{pessoa.nome}}</td>
-      <td>{{pessoa.endereco.cidade}}</td>
-      <td>{{pessoa.endereco.estado}}</td>
-      <td>
-        <a href="#" class="remove-decoration" [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'"
-           tooltipPosition="top" showDelay="300">{{pessoa.ativo ? 'ATIVO' : 'INATIVO'}}</a>
-      </td>
-      <td class="col-acoes">
-        <a pButton pRipple class="p-button-rounded mr-2 mb-2" icon="pi pi-pencil" pTooltip="Editar" type="button"
-           tooltipPosition="top" showDelay="300"></a>
-        <a pButton pRipple class="p-button-rounded mr-2 mb-2" icon="pi pi-trash" pTooltip="Apagar" type="button"
-           tooltipPosition="top" showDelay="300"></a>
+      <td *ngFor="let col of columns">
+        <ng-template [ngIf]="col.type == undefined">
+          {{ pessoa[col.field] }}
+        </ng-template>
+        <ng-template [ngIf]="col.type == 'cidade'">
+          {{ pessoa[col.field].cidade }}
+        </ng-template>
+        <ng-template [ngIf]="col.type == 'estado'">
+          {{ pessoa[col.field].estado }}
+        </ng-template>
+        <ng-template [ngIf]="col.type == 'status'">
+          <a href="#" class="remove-decoration" [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'"
+             tooltipPosition="top" showDelay="300">
+            {{ pessoa[col.field] ? 'ATIVO' : 'INATIVO' }}
+          </a>
+        </ng-template>
+        <ng-template [ngIf]="col.type == 'buttons'">
+          <div class="col-acoes">
+            <a pButton pRipple class="p-button-rounded mr-2 mb-2" icon="pi pi-pencil" pTooltip="Editar" type="button"
+               tooltipPosition="top" showDelay="300"></a>
+            <a pButton pRipple class="p-button-rounded mr-2 mb-2" icon="pi pi-trash" pTooltip="Apagar" type="button"
+               tooltipPosition="top" showDelay="300" (click)="excluir(pessoa)"></a>
+          </div>
+        </ng-template>
       </td>
     </tr>
   </ng-template>
-
   <ng-template pTemplate="emptymessage">
     <tr>
       <td>

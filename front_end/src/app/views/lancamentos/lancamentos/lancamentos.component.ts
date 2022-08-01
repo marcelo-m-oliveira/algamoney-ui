@@ -19,10 +19,11 @@ export class LancamentosComponent implements OnInit {
   @ViewChild('tabela') grid!: Table
 
   constructor(
-    private messageService: MessageService,
-    private lancamentoService: LancamentoService,
     private confirmationService: ConfirmationService,
     private errorHandler: ErrorHandlerService,
+    private messageService: MessageService,
+
+    private lancamentoService: LancamentoService,
   ) {}
 
   ngOnInit(): void {
