@@ -30,8 +30,8 @@
 
     <section class="grid">
       <div class="col-12">
-        <app-lancamentos-tabela (onLazyLoad)="aoMudarPagina($event)" [lancamentos]="lancamentos" [lancamentoFilter]="lancamentoFilter"
-                                [totalRegistros]="totalRegistros"></app-lancamentos-tabela>
+        <app-lancamentos-tabela #tabela (onLazyLoad)="aoMudarPagina($event)" [lancamentos]="lancamentos" [lancamentoFilter]="lancamentoFilter"
+                                [totalRegistros]="totalRegistros" (deletar)="confirmarExclusao($event)"></app-lancamentos-tabela>
       </div>
       <div class="field col-12">
         <a pButton type="submit" label="Novo lançamento"></a>

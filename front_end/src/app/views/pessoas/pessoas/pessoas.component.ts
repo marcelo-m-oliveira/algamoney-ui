@@ -18,11 +18,6 @@ export class PessoasComponent {
   ngOnInit(): void {
   }
 
-  aoMudarPagina(event: any): void {
-    const pagina = event!.first! / event!.rows!
-    this.pesquisar(pagina)
-  }
-
   pesquisar(pagina: number = 0): void {
     this.pessoasFilter.pagina = pagina
     this.pessoaService.pesquisar(this.pessoasFilter)
@@ -30,5 +25,10 @@ export class PessoasComponent {
         this.totalRegistros = response.total
         this.pessoas = response.pessoas
       })
+  }
+
+  aoMudarPagina(event: any): void {
+    const pagina = event!.first! / event!.rows!
+    this.pesquisar(pagina)
   }
 }

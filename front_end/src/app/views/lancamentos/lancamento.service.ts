@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http"
 import { Injectable } from '@angular/core'
 import { DatePipe } from "@angular/common"
 
-
 export class LancamentoFilter {
+  codigo?: number
   descricao?: string
   dataVencimentoDe?: Date
   dataVencimentoAte?: Date
@@ -44,7 +44,7 @@ export class LancamentoService {
       params = params.set('dataVencimentoAte', this.datePipe.transform(filtro.dataVencimentoAte, 'yyyy-MM-dd')!)
     }
 
-    return this.http.get(`${this.lancamentosUrl}?resumo`, { headers: this.headers, params })
+    return this.http.get<any>(`${this.lancamentosUrl}?resumo`, { headers: this.headers, params })
       .toPromise().then((response : any) => {
         const lancamentos = response['content']
 
@@ -55,6 +55,13 @@ export class LancamentoService {
 
         return resultado
       })
+
+  }
+
+  excluir(codigo: number): Promise<void> {
+    this.headers
+    return this.http.delete<void>(`${this.lancamentosUrl}/${codigo}`, { headers: this.headers })
+      .toPromise()
 
   }
 }
