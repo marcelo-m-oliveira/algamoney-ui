@@ -17,8 +17,8 @@
 
     <section class="grid">
       <div class="col-12">
-        <app-pessoas-tabela (onLazyLoad)="aoMudarPagina($event)" [pessoas]="pessoas" [pessoasFilter]="pessoasFilter"
-                            [totalRegistros]="totalRegistros"></app-pessoas-tabela>
+        <app-pessoas-tabela #tabela (onLazyLoad)="aoMudarPagina($event)" [pessoas]="pessoas" [pessoasFilter]="pessoasFilter"
+                            [totalRegistros]="totalRegistros" (deletar)="confirmarExclusao($event)"></app-pessoas-tabela>
       </div>
 
       <div class="field col-12">

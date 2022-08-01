@@ -30,7 +30,7 @@ export class PessoaService {
       params = params.set('nome', filtro.nome)
     }
 
-    return this.http.get(`${this.pessoasUrl}?resumo`, { headers: this.headers, params })
+    return this.http.get<any>(`${this.pessoasUrl}?resumo`, { headers: this.headers, params })
       .toPromise().then((response: any) => {
         const pessoas = response['content']
 
@@ -43,12 +43,21 @@ export class PessoaService {
       })
   }
 
+  excluir(codigo: number): Promise<void> {
+    this.headers
+    return this.http.delete<void>(`${this.pessoasUrl}/${codigo}`, { headers: this.headers })
+      .toPromise()
+
+  }
+
   listarTodos(): Promise<any> {
     this.headers
 
-    return this.http.get(this.pessoasUrl, { headers: this.headers })
+    return this.http.get<any>(this.pessoasUrl, { headers: this.headers })
       .toPromise().then((response: any) => response['content']
       )
   }
+
+
 
 }
