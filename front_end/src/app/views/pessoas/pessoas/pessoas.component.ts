@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 
 import { Table } from "primeng/table"
 import { ConfirmationService, MessageService } from "primeng/api"
@@ -44,19 +44,31 @@ export class PessoasComponent {
     this.pesquisar(pagina)
   }
 
-  confirmarExclusao(lancamento: any): void {
+  confirmarExclusao(pessoa: any): void {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja excluir?',
-      accept: () => this.excluir(lancamento)
+      accept: () => this.excluir(pessoa)
     })
   }
 
-  excluir(lancamento: any): void {
-    this.pessoaService.excluir(lancamento.codigo)
+  excluir(pessoa: any): void {
+    this.pessoaService.excluir(pessoa.codigo)
       .then(() => {
-        this.messageService.add({ severity: 'success' , detail: 'Lançamento excluído com sucesso!' })
+        this.messageService.add({ severity: 'success' , detail: `Pessoa excluída com sucesso!` })
         this.pesquisar()
       })
       .catch(error => this.errorHandler.handle(error))
+  }
+
+  alterarStatus(pessoa: any): void {
+    const novoStatus = !pessoa.ativo
+
+    this.pessoaService.mudarStatus(pessoa.codigo, novoStatus)
+      .then(() => {
+        const acao = novoStatus ? 'ativada' : 'desativada'
+        pessoa.ativo = novoStatus
+        this.messageService.add({ severity: 'success', detail: `Pessoa ${acao} com sucesso!` })
+      })
+      .catch(erro => this.errorHandler.handle(erro))
   }
 }

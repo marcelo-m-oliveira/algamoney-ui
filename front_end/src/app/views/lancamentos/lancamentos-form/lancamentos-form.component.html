@@ -1,5 +1,5 @@
 <main>
-  <form #lancamentoForm="ngForm" autocomplete="off">
+  <form #lancamentoForm="ngForm" autocomplete="off" (ngSubmit)="salvar(lancamentoForm)">
     <section>
       <header class="col-12">
         <h1>Novo Lançamento</h1>
@@ -7,37 +7,40 @@
 
       <div class="grid">
         <div class="p-fluid col-12 md:col-6">
-          <p-selectButton [options]="tipos" #tipo></p-selectButton>
+          <p-selectButton [options]="tipos" name="tipo" [(ngModel)]="lancamento.tipo" #tipo></p-selectButton>
         </div>
       </div>
 
       <div class="grid">
         <div class="p-fluid col-6">
-          <h4 for="vencimento">Vencimento</h4>
-          <p-calendar id="vencimento" name="vencimento" class="w-full" dateFormat="dd/mm/yy"
+          <h4 for="dataVencimento">Vencimento</h4>
+          <p-calendar id="dataVencimento" name="dataVencimento" class="w-full" dateFormat="dd/mm/yy" [(ngModel)]="lancamento.dataVencimento"
                       [showIcon]="true" [readonlyInput]="true" [required]="true" ngModel #vencimento="ngModel">
           </p-calendar>
-          <app-message [control]="vencimento.control" error="required" text="Informe uma data de vencimento"></app-message>
+          <app-message [control]="vencimento" error="required" text="Informe uma data de vencimento"></app-message>
         </div>
 
         <div class="p-fluid col-6">
-          <h4 for="recebimento">{{ tipo.value === 'TP1' ? 'Recebimento' : 'Pagamento' }}</h4>
-          <p-calendar id="recebimento" class="w-full" dateFormat="dd/mm/yy" [showIcon]="true" [readonlyInput]="true">
+          <h4 for="dataPagamento">{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</h4>
+          <p-calendar id="dataPagamento" name="dataPagamento" class="w-full" dateFormat="dd/mm/yy" [showIcon]="true"
+                      [readonlyInput]="true" [(ngModel)]="lancamento.dataPagamento">
           </p-calendar>
         </div>
 
         <div class="col-12 md:col-9">
           <h4 for="descricao">Descrição</h4>
           <input id="descricao" name="descricao" type="text" class="w-full" pInputText
-                 ngModel #descricao="ngModel" [required]="true" minlength="5">
-          <app-message [control]="descricao.control" error="required" text="Informe uma descrição"></app-message>
-          <app-message [control]="descricao.control" error="minlength" text="Mínimo de {{ descricao.errors?.['minlength']?.requiredLength }} caracteres."></app-message>
+                 ngModel #descricao="ngModel" [required]="true" minlength="5" [(ngModel)]="lancamento.descricao">
+          <app-message [control]="descricao" error="required"
+                       text="Informe uma descrição"></app-message>
+          <app-message [control]="descricao" error="minlength"
+                       text="Mínimo de {{ descricao.errors?.['minlength']?.requiredLength }} caracteres. Você digitou apenas {{ descricao.errors?.['minlength']?.actualLength }}"></app-message>
         </div>
 
         <div class="p-fluid col-12 md:col-3">
           <h4 for="valor">Valor</h4>
           <p-inputNumber id="valor" name="valor" placeholder="0,00" mode="currency" currency="BRL" locale="pt-BR"
-                         styleClass="w-full" ngModel [required]="true" #valor="ngModel">
+                         styleClass="w-full" ngModel [required]="true" #valor="ngModel" [(ngModel)]="lancamento.valor">
           </p-inputNumber>
           <app-message [control]="valor.control" error="required" text="Informe um valor"></app-message>
         </div>
@@ -45,20 +48,18 @@
         <div class="col-12 md:col-6">
           <h4 for="categoria">Categoria</h4>
           <p-dropdown id="categoria" name="categoria" [options]="categorias" placeholder="Selecione uma Categoria" styleClass="w-full"
-                      [showClear]="true" [filter]="true" ngModel [required]="true" #categoria="ngModel"></p-dropdown>
-          <app-message [control]="categoria.control" error="required" text="Informe uma categoria"></app-message>
+                      [showClear]="true" [filter]="true" [(ngModel)]="lancamento.categoria.codigo"></p-dropdown>
         </div>
 
         <div class="col-12 md:col-6">
           <h4 for="pessoa">Pessoa</h4>
           <p-dropdown id="pessoa" name="pessoa" [options]="pessoas" placeholder="Selecione uma Pessoa" styleClass="w-full"
-                      [showClear]="true" [filter]="true" ngModel [required]="true" #pessoa="ngModel"></p-dropdown>
-          <app-message [control]="pessoa.control" error="required" text="Informe uma pessoa"></app-message>
+                      [showClear]="true" [filter]="true" [(ngModel)]="lancamento.pessoa.codigo"></p-dropdown>
         </div>
 
-        <div class="col-12">
+        <div class="col-12 p-fluid">
           <h4 for="observacao">Observação</h4>
-          <textarea [rows]="5" [cols]="30" id="observacao" class="w-full" pInputTextarea></textarea>
+          <textarea [rows]="5" [cols]="30" id="observacao" name="observacao" class="w-full" pInputTextarea [(ngModel)]="lancamento.observacao"></textarea>
         </div>
 
         <div class="col-4 md:col-2">
