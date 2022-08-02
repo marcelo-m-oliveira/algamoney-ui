@@ -1,21 +1,25 @@
 import { Component, Input } from '@angular/core'
-import { FormControl } from "@angular/forms"
 
 @Component({
   selector: 'app-message',
   template: `
-    <p-message class="p-message-error" *ngIf="temErro()" severity="error" {{ text }}></p-message>
+<div *ngIf="temErro()"
+     class="p-message p-message-error">
+  {{ text }}
+</div>
   `,
   styles: [`
     .p-message-error {
-  padding: 3px;
-  }`
-  ]
+      margin: 0;
+      margin-top: 4px;
+      padding: 3px;
+    }
+  `]
 })
 export class MessageComponent {
 
   @Input() error: string = ''
-  @Input() control: FormControl = new FormControl()
+  @Input() control: any
   @Input() text: string = ''
 
   temErro(): boolean {

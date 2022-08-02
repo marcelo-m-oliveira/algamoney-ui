@@ -17,7 +17,7 @@
           <p-calendar id="vencimento" name="vencimento" class="w-full" dateFormat="dd/mm/yy"
                       [showIcon]="true" [readonlyInput]="true" [required]="true" ngModel #vencimento="ngModel">
           </p-calendar>
-          <app-message [control]="vencimento.control" error="required" text="Informe uma data de vencimento"></app-message>
+          <app-message [control]="vencimento" error="required" text="Informe uma data de vencimento"></app-message>
         </div>
 
         <div class="p-fluid col-6">
@@ -30,8 +30,10 @@
           <h4 for="descricao">Descrição</h4>
           <input id="descricao" name="descricao" type="text" class="w-full" pInputText
                  ngModel #descricao="ngModel" [required]="true" minlength="5">
-          <app-message [control]="descricao.control" error="required" text="Informe uma descrição"></app-message>
-          <app-message [control]="descricao.control" error="minlength" text="Mínimo de {{ descricao.errors?.['minlength']?.requiredLength }} caracteres."></app-message>
+          <app-message [control]="descricao" error="required"
+                       text="Informe uma descrição"></app-message>
+          <app-message [control]="descricao" error="minlength"
+                       text="Mínimo de {{ descricao.errors?.['minlength']?.requiredLength }} caracteres. Você digitou apenas {{ descricao.errors?.['minlength']?.actualLength }}"></app-message>
         </div>
 
         <div class="p-fluid col-12 md:col-3">
@@ -45,15 +47,13 @@
         <div class="col-12 md:col-6">
           <h4 for="categoria">Categoria</h4>
           <p-dropdown id="categoria" name="categoria" [options]="categorias" placeholder="Selecione uma Categoria" styleClass="w-full"
-                      [showClear]="true" [filter]="true" ngModel [required]="true" #categoria="ngModel"></p-dropdown>
-          <app-message [control]="categoria.control" error="required" text="Informe uma categoria"></app-message>
+                      [showClear]="true" [filter]="true" [required]="true" #categoria></p-dropdown>
         </div>
 
         <div class="col-12 md:col-6">
           <h4 for="pessoa">Pessoa</h4>
           <p-dropdown id="pessoa" name="pessoa" [options]="pessoas" placeholder="Selecione uma Pessoa" styleClass="w-full"
-                      [showClear]="true" [filter]="true" ngModel [required]="true" #pessoa="ngModel"></p-dropdown>
-          <app-message [control]="pessoa.control" error="required" text="Informe uma pessoa"></app-message>
+                      [showClear]="true" [filter]="true" ngModel [required]="true" #pessoa></p-dropdown>
         </div>
 
         <div class="col-12">
