@@ -1,5 +1,5 @@
 <main>
-  <form #pessoaForm="ngForm" autocomplete="off">
+  <form #pessoaForm="ngForm" autocomplete="off" (ngSubmit)="salvar(pessoaForm)">
     <section>
       <header class="col-12">
         <h1>Nova Pessoa</h1>
@@ -9,7 +9,7 @@
         <div class="col-12">
           <h4 for="nome">Nome</h4>
           <input id="nome" name="nome" type="text" class="w-full" pInputText
-                 ngModel #nome="ngModel" [required]="true" minlength="5">
+                 ngModel #nome="ngModel" [required]="true" minlength="5" [(ngModel)]="pessoa.nome">
           <app-message [control]="nome.control" error="required" text="Informe o nome"></app-message>
           <app-message [control]="nome.control" error="minlength" text="Mínimo de {{ nome.errors?.['minlength']?.requiredLength }} caracteres."></app-message>
         </div>
@@ -17,47 +17,47 @@
         <div class="col-12 md:col-9">
           <h4 for="logradouro">Logradouro</h4>
           <input id="logradouro" name="logradouro" type="text" class="w-full" pInputText
-                 ngModel #logradouro="ngModel" [required]="true">
+                 ngModel #logradouro="ngModel" [required]="true" [(ngModel)]="pessoa.endereco.logradouro">
           <app-message [control]="logradouro.control" error="required" text="Informe o logradouro"></app-message>
         </div>
 
         <div class="col-12 md:col-3">
           <h4 for="numero">Número</h4>
           <input id="numero" name="numero" type="text" class="w-full" pInputText
-                 ngModel #numero="ngModel" [required]="true">
+                 ngModel #numero="ngModel" [required]="true" [(ngModel)]="pessoa.endereco.numero">
           <app-message [control]="numero.control" error="required" text="Informe o número"></app-message>
         </div>
 
         <div class="col-12 md:col-4">
           <h4 for="complemento">Complemento</h4>
-          <input id="complemento" type="text" class="w-full" pInputText>
+          <input id="complemento" name="complemento" type="text" class="w-full" pInputText [(ngModel)]="pessoa.endereco.complemento">
         </div>
 
         <div class="col-12 md:col-4">
           <h4 for="bairro">Bairro</h4>
           <input id="bairro" name="bairro" type="text" class="w-full" pInputText
-                 ngModel #bairro="ngModel" [required]="true">
+                 ngModel #bairro="ngModel" [required]="true" [(ngModel)]="pessoa.endereco.bairro">
           <app-message [control]="bairro.control" error="required" text="Informe o Bairro"></app-message>
         </div>
 
         <div class="col-12 md:col-4">
           <h4 for="CEP">CEP</h4>
           <p-inputMask id="CEP" name="CEP" styleClass="w-full" mask="99.999-999"
-                       ngModel #CEP="ngModel" [required]="true"></p-inputMask>
+                       ngModel #CEP="ngModel" [required]="true" [(ngModel)]="pessoa.endereco.cep"></p-inputMask>
           <app-message [control]="CEP.control" error="required" text="Informe o CEP"></app-message>
         </div>
 
         <div class="col-12 md:col-6">
           <h4 for="cidade">Cidade</h4>
           <input id="cidade" name="cidade" type="text" class="w-full" pInputText
-                 ngModel #cidade="ngModel" [required]="true">
+                 ngModel #cidade="ngModel" [required]="true" [(ngModel)]="pessoa.endereco.cidade">
           <app-message [control]="cidade.control" error="required" text="Informe a Cidade"></app-message>
         </div>
 
         <div class="col-12 md:col-6">
           <h4 for="estado">Estado</h4>
           <input id="estado" name="estado" type="text" class="w-full" pInputText
-                 ngModel #estado="ngModel" [required]="true">
+                 ngModel #estado="ngModel" [required]="true" [(ngModel)]="pessoa.endereco.estado">
           <app-message [control]="estado.control" error="required" text="Informe o Estado"></app-message>
         </div>
 

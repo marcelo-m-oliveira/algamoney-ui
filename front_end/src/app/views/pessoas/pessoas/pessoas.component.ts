@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 
 import { Table } from "primeng/table"
 import { ConfirmationService, MessageService } from "primeng/api"
@@ -44,10 +44,10 @@ export class PessoasComponent {
     this.pesquisar(pagina)
   }
 
-  confirmarExclusao(lancamento: any): void {
+  confirmarExclusao(pessoa: any): void {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja excluir?',
-      accept: () => this.excluir(lancamento)
+      accept: () => this.excluir(pessoa)
     })
   }
 

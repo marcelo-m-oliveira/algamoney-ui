@@ -12,8 +12,8 @@ export class PessoasTabelaComponent {
   @Input() totalRegistros: number = 0
   @Input() pessoasFilter: PessoasFilter = new PessoasFilter()
   @Output() onLazyLoad: EventEmitter<LazyLoadEvent> = new EventEmitter<LazyLoadEvent>()
-  @Output() deletar: EventEmitter<any> = new EventEmitter<any>();
-  @Output() status: EventEmitter<any> = new EventEmitter<any>();
+  @Output() deletar: EventEmitter<any> = new EventEmitter<any>()
+  @Output() status: EventEmitter<any> = new EventEmitter<any>()
 
   cols = [
     { field: 'nome', header: 'Nome', sortField: 'nome' },

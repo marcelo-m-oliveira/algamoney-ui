@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http"
 
+import { Pessoa } from "../../core/model"
+
 export class PessoasFilter {
   nome?: string
   pagina: number = 0
@@ -42,19 +44,12 @@ export class PessoaService {
       })
   }
 
-  excluir(codigo: number): Promise<void> {
-    this.headers
-    return this.http.delete<void>(`${this.pessoasUrl}/${codigo}`, { headers: this.headers })
-      .toPromise()
-
-  }
-
-  mudarStatus(codigo: number, ativo: boolean): Promise<void> {
+  adicionar(pessoa: Pessoa): Promise<Pessoa | undefined> {
     const headers = new HttpHeaders()
       .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
-      .append('Content-Type', 'application/json')
+      .append('Content-Type', 'application/json');
 
-    return this.http.put<void>(`${this.pessoasUrl}/${codigo}/ativo`, ativo, { headers })
+    return this.http.post<Pessoa>(this.pessoasUrl, pessoa, { headers })
       .toPromise()
   }
 
@@ -66,6 +61,19 @@ export class PessoaService {
       )
   }
 
+  mudarStatus(codigo: number, ativo: boolean): Promise<void> {
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
+      .append('Content-Type', 'application/json')
 
+    return this.http.put<void>(`${this.pessoasUrl}/${codigo}/ativo`, ativo, { headers })
+      .toPromise()
+  }
 
+  excluir(codigo: number): Promise<void> {
+    this.headers
+    return this.http.delete<void>(`${this.pessoasUrl}/${codigo}`, { headers: this.headers })
+      .toPromise()
+
+  }
 }
