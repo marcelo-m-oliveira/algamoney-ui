@@ -22,8 +22,8 @@
         </ng-template>
         <ng-template [ngIf]="col.type == 'status'">
           <a href="#" class="remove-decoration" [pTooltip]="pessoa.ativo ? 'Desativar' : 'Ativar'"
-             tooltipPosition="top" showDelay="300">
-            {{ pessoa[col.field] ? 'ATIVO' : 'INATIVO' }}
+             tooltipPosition="top" showDelay="300" (click)="alterarStatus(pessoa)">
+            {{ pessoa[col.field] ? 'Ativo' : 'Inativo' }}
           </a>
         </ng-template>
         <ng-template [ngIf]="col.type == 'buttons'">
