@@ -28,8 +28,6 @@ export class LancamentoService {
   ) { }
 
   pesquisar(filtro: LancamentoFilter): Promise<any> {
-    this.headers
-
     let params = new HttpParams()
       .set('page', filtro.pagina)
       .set('size', filtro.itensPorPagina)
@@ -60,7 +58,7 @@ export class LancamentoService {
 
   }
 
-  adicionar(lancamento: Lancamento): Promise<Lancamento | undefined> {
+  adicionar(lancamento: Lancamento): Promise<any> {
     const headers = new HttpHeaders()
       .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
       .append('Content-Type', 'application/json');
@@ -69,9 +67,34 @@ export class LancamentoService {
       .toPromise()
   }
 
-  excluir(codigo: number): Promise<void> {
-    this.headers
-    return this.http.delete<void>(`${this.lancamentosUrl}/${codigo}`, { headers: this.headers })
+  atualizar(lancamento: Lancamento): Promise<any> {
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
+      .append('Content-Type', 'application/json');
+
+    return this.http.put<Lancamento>(`${this.lancamentosUrl}/${lancamento.codigo}`, lancamento, { headers })
+      .toPromise()
+  }
+
+  buscarPorCodigo(codigo: number): Promise<Lancamento> {
+    return this.http.get<Lancamento>(`${this.lancamentosUrl}/${codigo}`, { headers: this.headers })
+      .toPromise()
+      .then((response:any) => {
+        this.converterStringsParaDatas([response]);
+
+        return response
+      });
+  }
+
+  private converterStringsParaDatas(lancamentos: Lancamento[]): void {
+    for (const lancamento of lancamentos) {
+      lancamento.dataVencimento = new Date(lancamento.dataVencimento)
+      if (lancamento.dataPagamento) lancamento.dataPagamento = new Date(lancamento.dataPagamento)
+    }
+  }
+
+  excluir(codigo: number): Promise<Lancamento | undefined> {
+    return this.http.delete<Lancamento>(`${this.lancamentosUrl}/${codigo}`, { headers: this.headers })
       .toPromise()
 
   }

@@ -1,41 +1,43 @@
 <main>
-  <form autocomplete="off" (ngSubmit)="pesquisar()">
-    <section class="grid">
-      <header class="col-12">
-        <h1>Lançamentos</h1>
-      </header>
-      <div class="col-12">
-        <h4 for="descricao">Descrição</h4>
-        <input id="descricao" name="descricao" type="text" class="w-full" pInputText
-               [(ngModel)]="lancamentoFilter.descricao">
-      </div>
+  <p-card styleClass="card">
+    <form autocomplete="off" (ngSubmit)="pesquisar()">
+      <section class="grid">
+        <header class="col-12">
+          <h1>Lançamentos</h1>
+        </header>
+        <div class="col-12">
+          <h4 for="descricao">Descrição</h4>
+          <input id="descricao" name="descricao" type="text" class="w-full" pInputText
+                 [(ngModel)]="lancamentoFilter.descricao">
+        </div>
 
-      <div class="col-12 md:col-6 p-fluid">
-        <h4 for="dataVencimentoDe">Vencimento</h4>
-        <p-calendar id="dataVencimentoDe" name="dataVencimentoDe" class="w-full" dateFormat="dd/mm/yy"
-                    [showIcon]="true" [readonlyInput]="true" [(ngModel)]="lancamentoFilter.dataVencimentoDe">
-        </p-calendar>
-      </div>
-      <div class="col-12 md:col-6 p-fluid">
-        <h4 for="dataVencimentoAte"> Até </h4>
-        <p-calendar id="dataVencimentoAte" name="dataVencimentoAte" class="w-full" dateFormat="dd/mm/yy"
-                    [showIcon]="true" [readonlyInput]="true" [(ngModel)]="lancamentoFilter.dataVencimentoAte">
-        </p-calendar>
-      </div>
+        <div class="col-12 md:col-6 p-fluid">
+          <h4 for="dataVencimentoDe">Vencimento</h4>
+          <p-calendar id="dataVencimentoDe" name="dataVencimentoDe" class="w-full" dateFormat="dd/mm/yy"
+                      [showIcon]="true" [readonlyInput]="true" [(ngModel)]="lancamentoFilter.dataVencimentoDe">
+          </p-calendar>
+        </div>
+        <div class="col-12 md:col-6 p-fluid">
+          <h4 for="dataVencimentoAte"> Até </h4>
+          <p-calendar id="dataVencimentoAte" name="dataVencimentoAte" class="w-full" dateFormat="dd/mm/yy"
+                      [showIcon]="true" [readonlyInput]="true" [(ngModel)]="lancamentoFilter.dataVencimentoAte">
+          </p-calendar>
+        </div>
 
-      <div class="field col-12">
-        <p-button icon="pi pi-search" type="submit" label="Pesquisar"></p-button>
-      </div>
-    </section>
+        <div class="field col-12">
+          <p-button icon="pi pi-search" type="submit" label="Pesquisar"></p-button>
+        </div>
+      </section>
 
-    <section class="grid">
-      <div class="col-12">
-        <app-lancamentos-tabela #tabela (onLazyLoad)="aoMudarPagina($event)" [lancamentos]="lancamentos" [lancamentoFilter]="lancamentoFilter"
-                                [totalRegistros]="totalRegistros" (deletar)="confirmarExclusao($event)"></app-lancamentos-tabela>
-      </div>
-      <div class="field col-12">
-        <p-button icon="pi pi-plus" type="submit" label="Novo lançamento" routerLink="/lancamentos/novo"></p-button>
-      </div>
-    </section>
-  </form>
+      <section class="grid">
+        <div class="col-12">
+          <app-lancamentos-tabela #tabela (onLazyLoad)="aoMudarPagina($event)" [lancamentos]="lancamentos" [lancamentoFilter]="lancamentoFilter"
+                                  [totalRegistros]="totalRegistros" (deletar)="confirmarExclusao($event)"></app-lancamentos-tabela>
+        </div>
+        <div class="field col-12">
+          <p-button icon="pi pi-plus" label="Novo lançamento" routerLink="/lancamentos/novo"></p-button>
+        </div>
+      </section>
+    </form>
+  </p-card>
 </main>

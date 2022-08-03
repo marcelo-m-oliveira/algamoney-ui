@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute } from "@angular/router"
+import {ActivatedRoute, Router} from "@angular/router"
 import { NgForm } from "@angular/forms"
 
 import { MessageService } from "primeng/api"
@@ -10,6 +10,7 @@ import { PessoaService } from "../../pessoas/pessoa.service"
 import { LancamentoService } from "../lancamento.service"
 
 import { Lancamento } from "../../../core/model"
+import { Title } from "@angular/platform-browser"
 
 @Component({
   selector: 'app-lancamentos-form',
@@ -35,16 +36,35 @@ export class LancamentosFormComponent implements OnInit {
     private pessoaService: PessoaService,
 
     private route: ActivatedRoute,
+    private router: Router,
 
+    private title: Title,
   ) { }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.params['codigo'])
+    this.title.setTitle('Novo lançamento')
+    const codigoLancamento = this.route.snapshot.params['codigo']
+
+    if (codigoLancamento) this.carregarLancamento(codigoLancamento)
+
     this.carregarCategirias()
     this.carregarPessoas()
   }
 
-  carregarCategirias() {
+  get editando(): boolean {
+    return Boolean(this.lancamento.codigo)
+  }
+
+  carregarLancamento(codigo: number): void {
+    this.lancamentoService.buscarPorCodigo(codigo)
+      .then((lancamento: Lancamento) => {
+        this.lancamento = lancamento
+        this.atualizarTituloEdicao()
+      })
+      .catch(error => this.errorHandlerService.handle(error))
+  }
+
+  carregarCategirias(): any {
     return this.categoriaService.listarTodos()
       .then((categorias: any) => {
         this.categorias = categorias.map((c: any) => (
@@ -54,7 +74,7 @@ export class LancamentosFormComponent implements OnInit {
       .catch(error => this.errorHandlerService.handle(error))
   }
 
-  carregarPessoas() {
+  carregarPessoas(): any {
     return this.pessoaService.listarTodos()
       .then((pessoas: any) => {
         this.pessoas = pessoas.map((p: any) => (
@@ -64,13 +84,36 @@ export class LancamentosFormComponent implements OnInit {
       .catch(error => this.errorHandlerService.handle(error))
   }
 
-  salvar(lancamentoForm: NgForm): void {
+  salvar(form: NgForm): void {
+    this.editando ? this.atualizarLancamento(form) : this.adicionarLancamento(form)
+  }
+
+  adicionarLancamento(form: NgForm): void {
     this.lancamentoService.adicionar(this.lancamento)
-      .then(() => {
+      .then((response: Lancamento) => {
         this.messageService.add({ severity: 'success', detail: 'Lançamento adicionado com sucesso!' })
-        lancamentoForm.reset()
-        this.lancamento = new Lancamento()
+        this.router.navigate(['/lancamentos', response.codigo])
       })
       .catch(error => this.errorHandlerService.handle(error))
+  }
+
+  atualizarLancamento(form: NgForm): void {
+    this.lancamentoService.atualizar(this.lancamento)
+      .then((lancamento: Lancamento) => {
+        this.lancamento = lancamento
+        this.atualizarTituloEdicao()
+        this.messageService.add({ severity: 'success', detail: 'Lançamento atualizado com sucesso!' })
+      })
+      .catch(error => this.errorHandlerService.handle(error))
+  }
+
+  novo(form: NgForm): void {
+    form.reset(new Lancamento())
+
+    this.router.navigate(['/lancamentos/novo'])
+  }
+
+  private atualizarTituloEdicao(): void {
+    this.title.setTitle(`Edição de lancamento: ${this.lancamento.descricao}`)
   }
 }
