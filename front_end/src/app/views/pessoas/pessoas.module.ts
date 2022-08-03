@@ -26,9 +26,6 @@ import { PessoasComponent } from "./pessoas/pessoas.component"
 
     SharedModule,
   ],
-  exports: [
-    PessoasComponent,
-    PessoasFormComponent,
-  ]
+  exports: []
 })
 export class PessoasModule { }

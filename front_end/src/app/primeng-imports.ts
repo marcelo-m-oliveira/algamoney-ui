@@ -9,6 +9,7 @@ import { SelectButtonModule } from 'primeng/selectbutton'
 import { DropdownModule } from 'primeng/dropdown'
 import { InputNumberModule } from 'primeng/inputnumber'
 import { InputMaskModule } from 'primeng/inputmask'
+import { CardModule } from "primeng/card"
 
 export const PRIMENG_IMPORTS: any = [
   InputTextModule,
@@ -22,4 +23,5 @@ export const PRIMENG_IMPORTS: any = [
   DropdownModule,
   InputNumberModule,
   InputMaskModule,
+  CardModule,
 ]

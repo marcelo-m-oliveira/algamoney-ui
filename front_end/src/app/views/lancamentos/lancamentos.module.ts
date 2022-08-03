@@ -26,9 +26,6 @@ import { LancamentosComponent } from "./lancamentos/lancamentos.component"
 
     SharedModule,
   ],
-  exports: [
-    LancamentosComponent,
-    LancamentosFormComponent,
-  ],
+  exports: [],
 })
 export class LancamentosModule { }
