@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute } from "@angular/router"
 import { NgForm } from "@angular/forms"
 
 import { MessageService } from "primeng/api"
@@ -33,9 +34,12 @@ export class LancamentosFormComponent implements OnInit {
     private categoriaService: CategoriaService,
     private pessoaService: PessoaService,
 
+    private route: ActivatedRoute,
+
   ) { }
 
   ngOnInit(): void {
+    console.log(this.route.snapshot.params['codigo'])
     this.carregarCategirias()
     this.carregarPessoas()
   }

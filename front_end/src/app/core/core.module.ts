@@ -18,11 +18,28 @@ import { ErrorHandlerService } from "./error-handler.service"
 import { ConfirmDialogCustomComponent } from "./confirm-dialog-custom/confirm-dialog-custom.component"
 import { NavbarComponent } from "./navbar/navbar.component"
 
+import { RouterModule, Routes } from "@angular/router"
+import { LancamentosComponent } from "../views/lancamentos/lancamentos/lancamentos.component"
+import { LancamentosFormComponent } from "../views/lancamentos/lancamentos-form/lancamentos-form.component"
+import { PessoasComponent } from "../views/pessoas/pessoas/pessoas.component"
+import { PessoasFormComponent } from "../views/pessoas/pessoas-form/pessoas-form.component"
+
 registerLocaleData(ptBr, 'pt-BR')
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http)
 }
+
+const routes: Routes = [
+  { path: 'lancamentos/:codigo', component: LancamentosFormComponent },
+  { path: 'lancamentos/novo', component: LancamentosFormComponent },
+  { path: 'lancamentos', component: LancamentosComponent },
+
+  { path: 'pessoas/:codigo', component: PessoasFormComponent },
+  { path: 'pessoas/nova', component: PessoasFormComponent },
+  { path: 'pessoas', component: PessoasComponent},
+
+]
 
 @NgModule({
   declarations: [
@@ -31,6 +48,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   ],
   imports: [
     CommonModule,
+    RouterModule.forRoot(routes),
 
     ConfirmDialogModule,
     CardModule,
@@ -46,6 +64,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   exports: [
     NavbarComponent,
     ConfirmDialogCustomComponent,
+    RouterModule,
 
     ConfirmDialogModule,
     CardModule,

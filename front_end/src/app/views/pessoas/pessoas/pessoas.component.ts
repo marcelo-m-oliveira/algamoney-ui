@@ -15,6 +15,7 @@ export class PessoasComponent {
   pessoasFilter: PessoasFilter = new PessoasFilter()
   pessoas: any[] = []
   totalRegistros: number = 0
+  isloading!: boolean
 
   @ViewChild('tabela') grid!: Table
 
