@@ -7,6 +7,7 @@ import { MessageModule } from "primeng/message"
 import { MessageService } from "primeng/api"
 
 import { MessageComponent } from "./message/message.component"
+import { RouterModule } from "@angular/router"
 
 
 @NgModule({
@@ -17,9 +18,13 @@ import { MessageComponent } from "./message/message.component"
     CommonModule,
     MessageModule,
     MessagesModule,
+
+    RouterModule,
+
   ],
   exports: [
     MessageComponent,
+    RouterModule
   ],
   providers: [
     MessageService,

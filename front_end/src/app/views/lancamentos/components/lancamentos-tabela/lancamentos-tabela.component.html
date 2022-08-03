@@ -23,12 +23,10 @@
           {{ lancamento[col.field] | date: 'dd/MM/Y' }}
         </ng-template>
         <ng-template [ngIf]="col.type == 'buttons'">
-          <div class="col-acoes">
-            <a pButton pRipple class="p-button-rounded mr-2 mb-2" icon="pi pi-pencil" pTooltip="Editar" type="button"
-               tooltipPosition="top" showDelay="300"></a>
-            <a pButton pRipple class="p-button-rounded mr-2 mb-2" icon="pi pi-trash" pTooltip="Apagar" type="button"
-               tooltipPosition="top" showDelay="300" (click)="excluir(lancamento)"></a>
-          </div>
+            <button pButton pRipple class="p-button-rounded mr-2 mb-2" icon="pi pi-pencil" pTooltip="Editar" type="button"
+               tooltipPosition="top" showDelay="300" [routerLink]="['/lancamentos', lancamento.codigo]"></button>
+            <button pButton pRipple class="p-button-rounded mr-2 mb-2" icon="pi pi-trash" pTooltip="Apagar" type="button"
+               tooltipPosition="top" showDelay="300" (click)="excluir(lancamento)"></button>
         </ng-template>
       </td>
     </tr>
