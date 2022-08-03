@@ -44,13 +44,28 @@ export class PessoaService {
       })
   }
 
-  adicionar(pessoa: Pessoa): Promise<Pessoa | undefined> {
+  adicionar(pessoa: Pessoa): Promise<any> {
     const headers = new HttpHeaders()
       .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
       .append('Content-Type', 'application/json');
 
     return this.http.post<Pessoa>(this.pessoasUrl, pessoa, { headers })
       .toPromise()
+  }
+
+  atualizar(pessoa: Pessoa): Promise<any> {
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
+      .append('Content-Type', 'application/json');
+
+    return this.http.put<Pessoa>(`${this.pessoasUrl}/${pessoa.codigo}`, pessoa, { headers })
+      .toPromise()
+  }
+
+  buscarPorCodigo(codigo: number): Promise<any> {
+    return this.http.get<Pessoa>(`${this.pessoasUrl}/${codigo}`, { headers:this.headers })
+      .toPromise()
+
   }
 
   listarTodos(): Promise<any> {

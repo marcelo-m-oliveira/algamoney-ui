@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
+import { Title } from "@angular/platform-browser"
 
 import { Table } from 'primeng/table'
 import { ConfirmationService, MessageService } from "primeng/api"
@@ -20,13 +21,16 @@ export class LancamentosComponent implements OnInit {
 
   constructor(
     private confirmationService: ConfirmationService,
-    private errorHandler: ErrorHandlerService,
     private messageService: MessageService,
 
+    private title: Title,
+
     private lancamentoService: LancamentoService,
+    private errorHandler: ErrorHandlerService,
   ) {}
 
   ngOnInit(): void {
+    this.title.setTitle('Pesquisa de lançamentos')
   }
 
   pesquisar(pagina: number = 0): void {

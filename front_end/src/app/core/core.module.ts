@@ -1,8 +1,9 @@
 import { CommonModule, DatePipe, registerLocaleData } from '@angular/common'
 import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core'
-import { RouterModule, Routes } from "@angular/router"
+import { Title } from "@angular/platform-browser"
 import { HttpClient } from "@angular/common/http"
 import ptBr from '@angular/common/locales/pt'
+import { RouterModule } from "@angular/router"
 
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core"
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
@@ -20,31 +21,11 @@ import { ConfirmDialogCustomComponent } from "./confirm-dialog-custom/confirm-di
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component'
 import { NavbarComponent } from "./navbar/navbar.component"
 
-import { LancamentosComponent } from "../views/lancamentos/lancamentos/lancamentos.component"
-import { LancamentosFormComponent } from "../views/lancamentos/lancamentos-form/lancamentos-form.component"
-import { PessoasComponent } from "../views/pessoas/pessoas/pessoas.component"
-import { PessoasFormComponent } from "../views/pessoas/pessoas-form/pessoas-form.component"
-
 registerLocaleData(ptBr, 'pt-BR')
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http)
 }
-
-const routes: Routes = [
-  { path: '', redirectTo: 'lancamentos', pathMatch: 'full' },
-  { path: 'lancamentos', component: LancamentosComponent },
-  { path: 'lancamentos/novo', component: LancamentosFormComponent },
-  { path: 'lancamentos/:codigo', component: LancamentosFormComponent },
-
-  { path: 'pessoas', component: PessoasComponent },
-  { path: 'pessoas/nova', component: PessoasFormComponent },
-  { path: 'pessoas/:codigo', component: PessoasFormComponent },
-
-  { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },
-  { path: '**', redirectTo: 'pagina-nao-encontrada' },
-
-]
 
 @NgModule({
   declarations: [
@@ -54,7 +35,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes),
+    RouterModule,
 
     ConfirmDialogModule,
     ToastModule,
@@ -70,7 +51,6 @@ const routes: Routes = [
   exports: [
     NavbarComponent,
     ConfirmDialogCustomComponent,
-    RouterModule,
 
     ConfirmDialogModule,
     ToastModule,
@@ -86,6 +66,8 @@ const routes: Routes = [
     LancamentoService,
     PessoaService,
     CategoriaService,
+
+    Title,
   ],
 })
 export class CoreModule { }

@@ -10,6 +10,7 @@ import { PessoaService } from "../../pessoas/pessoa.service"
 import { LancamentoService } from "../lancamento.service"
 
 import { Lancamento } from "../../../core/model"
+import { Title } from "@angular/platform-browser"
 
 @Component({
   selector: 'app-lancamentos-form',
@@ -37,13 +38,14 @@ export class LancamentosFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
 
+    private title: Title,
   ) { }
 
   ngOnInit(): void {
+    this.title.setTitle('Novo lançamento')
     const codigoLancamento = this.route.snapshot.params['codigo']
 
     if (codigoLancamento) this.carregarLancamento(codigoLancamento)
-
 
     this.carregarCategirias()
     this.carregarPessoas()
@@ -55,8 +57,9 @@ export class LancamentosFormComponent implements OnInit {
 
   carregarLancamento(codigo: number): void {
     this.lancamentoService.buscarPorCodigo(codigo)
-      .then((lancamento: Lancamento) =>{
+      .then((lancamento: Lancamento) => {
         this.lancamento = lancamento
+        this.atualizarTituloEdicao()
       })
       .catch(error => this.errorHandlerService.handle(error))
   }
@@ -98,7 +101,7 @@ export class LancamentosFormComponent implements OnInit {
     this.lancamentoService.atualizar(this.lancamento)
       .then((lancamento: Lancamento) => {
         this.lancamento = lancamento
-
+        this.atualizarTituloEdicao()
         this.messageService.add({ severity: 'success', detail: 'Lançamento atualizado com sucesso!' })
       })
       .catch(error => this.errorHandlerService.handle(error))
@@ -108,5 +111,9 @@ export class LancamentosFormComponent implements OnInit {
     form.reset(new Lancamento())
 
     this.router.navigate(['/lancamentos/novo'])
+  }
+
+  private atualizarTituloEdicao(): void {
+    this.title.setTitle(`Edição de lancamento: ${this.lancamento.descricao}`)
   }
 }

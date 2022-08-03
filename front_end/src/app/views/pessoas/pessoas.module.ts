@@ -6,6 +6,8 @@ import { PRIMENG_IMPORTS } from "../../primeng-imports"
 
 import { SharedModule } from "../../shared/shared.module"
 
+import { PessoasRoutingModule } from "./pessoas-routing.module"
+
 import { PessoasTabelaComponent } from "./components/pessoas-tabela/pessoas-tabela.component"
 import { PessoasFormComponent } from "./pessoas-form/pessoas-form.component"
 import { PessoasComponent } from "./pessoas/pessoas.component"
@@ -25,6 +27,8 @@ import { PessoasComponent } from "./pessoas/pessoas.component"
     PRIMENG_IMPORTS,
 
     SharedModule,
+
+    PessoasRoutingModule,
   ],
   exports: []
 })

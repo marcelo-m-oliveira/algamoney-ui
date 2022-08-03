@@ -3,7 +3,7 @@
     <form #pessoaForm="ngForm" autocomplete="off" (ngSubmit)="salvar(pessoaForm)">
       <section>
         <header class="col-12">
-          <h1>Nova Pessoa</h1>
+          <h1>{{ editando ? 'Edição de' : 'Nova' }} Pessoa</h1>
         </header>
 
         <div class="grid">
@@ -66,7 +66,7 @@
             <button pButton pRipple type="submit" label="Salvar" class="w-full mr-2 mb-2" [disabled]="pessoaForm.invalid"></button>
           </div>
           <div class="col-4 md:col-2">
-            <button pButton pRipple type="button" label="Novo" class="p-button-info w-full mr-2 mb-2"></button>
+            <button pButton pRipple type="button" label="Novo" class="p-button-info w-full mr-2 mb-2" (click)="novo(pessoaForm)"></button>
           </div>
           <div class="col-4 md:col-2">
             <button pButton pRipple type="button" label="Voltar" class="w-full mr-2 mb-2" routerLink="/pessoas"></button>

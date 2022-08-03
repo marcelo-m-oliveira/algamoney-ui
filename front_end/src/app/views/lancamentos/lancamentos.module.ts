@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from "@angular/forms"
+import { NgModule } from '@angular/core'
 
 import { PRIMENG_IMPORTS } from "../../primeng-imports"
 
 import { SharedModule } from "../../shared/shared.module"
+
+import { LancamentosRoutingModule } from "./lancamentos-routing.module"
 
 import { LancamentosTabelaComponent } from "./components/lancamentos-tabela/lancamentos-tabela.component"
 import { LancamentosFormComponent } from "./lancamentos-form/lancamentos-form.component"
@@ -24,7 +26,10 @@ import { LancamentosComponent } from "./lancamentos/lancamentos.component"
 
     PRIMENG_IMPORTS,
 
+
     SharedModule,
+
+    LancamentosRoutingModule,
   ],
   exports: [],
 })

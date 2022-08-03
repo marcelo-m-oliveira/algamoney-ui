@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core'
+import { Title } from "@angular/platform-browser"
 
 import { Table } from "primeng/table"
 import { ConfirmationService, MessageService } from "primeng/api"
@@ -15,19 +16,21 @@ export class PessoasComponent {
   pessoasFilter: PessoasFilter = new PessoasFilter()
   pessoas: any[] = []
   totalRegistros: number = 0
-  isloading!: boolean
 
   @ViewChild('tabela') grid!: Table
 
   constructor(
     private confirmationService: ConfirmationService,
-    private errorHandler: ErrorHandlerService,
     private messageService: MessageService,
 
+    private title: Title,
+
+    private errorHandler: ErrorHandlerService,
     private pessoaService: PessoaService,
   ) {}
 
   ngOnInit(): void {
+    this.title.setTitle('Pesquisa de pessoas')
   }
 
   pesquisar(pagina: number = 0): void {
@@ -70,6 +73,6 @@ export class PessoasComponent {
         pessoa.ativo = novoStatus
         this.messageService.add({ severity: 'success', detail: `Pessoa ${acao} com sucesso!` })
       })
-      .catch(erro => this.errorHandler.handle(erro))
+      .catch(error => this.errorHandler.handle(error))
   }
 }
