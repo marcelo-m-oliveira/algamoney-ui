@@ -44,15 +44,23 @@ body {
   margin: 3rem;
 }
 
+.card.card-login {
+  margin: 5.5rem 3rem auto 3rem;
+}
+
 .itens-card {
   padding: 5rem 2rem;
 }
 
-.texto-centro {
-
-  text-align: center;
+.itens-card-login {
+  padding: 2rem 1rem 5rem 1rem;
 }
 
 .itens-centro {
   text-align: center;
+}
+
+.login {
+  max-width: 30rem;
+  margin: auto;
 }

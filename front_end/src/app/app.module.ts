@@ -7,6 +7,7 @@ import { AppRoutingModule } from "./app-routing.module"
 import { CoreModule } from "./core/core.module"
 
 import { LancamentosModule } from "./views/lancamentos/lancamentos.module"
+import { SegurancaModule } from "./views/seguranca/seguranca.module"
 import { PessoasModule } from "./views/pessoas/pessoas.module"
 
 import { AppComponent } from './app.component'
@@ -23,6 +24,7 @@ import { AppComponent } from './app.component'
 
     CoreModule,
 
+    SegurancaModule,
     LancamentosModule,
     PessoasModule,
 
