@@ -13,17 +13,20 @@ export class ErrorHandlerService {
   handle(errorResponse: any): void {
     let msg: string
 
-    if (errorResponse === 'string') {
+    if (typeof errorResponse === 'string') {
       msg = errorResponse
-    } else if (errorResponse instanceof HttpErrorResponse && errorResponse.status >= 400 && errorResponse.status <= 499) {
+    } else if (errorResponse instanceof HttpErrorResponse && errorResponse.status >= 400
+      && errorResponse.status <= 499) {
       msg = 'Ocorreu um erro ao processar a sua solicitação'
+
       try {
         msg = errorResponse.error[0].mensagemUsuario
-      } catch (e) {}
-      console.log('Ocorreu um erro', errorResponse)
+      } catch (e) { }
+
+      console.error('Ocorreu um erro', errorResponse)
     } else {
       msg = 'Erro ao processar o serviço da API. Tente novamente'
-      console.log('Ocorreu um erro', errorResponse)
+      console.error('Ocorreu um erro', errorResponse)
     }
 
     this.messageService.add({ severity:'error', detail: msg })
