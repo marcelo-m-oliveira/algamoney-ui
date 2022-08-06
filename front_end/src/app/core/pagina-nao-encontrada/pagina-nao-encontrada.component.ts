@@ -1,4 +1,5 @@
-import { Component } from '@angular/core'
+import { Title } from "@angular/platform-browser"
+import {Component, OnInit} from '@angular/core'
 
 @Component({
   selector: 'app-pagina-nao-encontrada',
@@ -13,7 +14,7 @@ import { Component } from '@angular/core'
               </h2>
             </div>
             <div class="col-12">
-              <p class="texto-centro">
+              <p class="itens-centro">
                 A página que você está procurando não existe. Ele pode
                 ter sido movido ou removido completamente. Talvez você possa
                 retornar à página inicial do site e ver se consegue encontrar
@@ -32,8 +33,11 @@ import { Component } from '@angular/core'
   styles: [
   ]
 })
-export class PaginaNaoEncontradaComponent {
+export class PaginaNaoEncontradaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private title: Title,) { }
 
+  ngOnInit(): void {
+    this.title.setTitle('404 Página Não Encontrada')
+  }
 }

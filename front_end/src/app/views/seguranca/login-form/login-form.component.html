@@ -1,0 +1,25 @@
+<main>
+  <section>
+    <p-card styleClass="card card-login">
+      <form #loginForm="ngForm" autocomplete="off">
+        <div class="grid itens-card-login login">
+          <div class="col-12 p-fluid">
+            <h1>Login</h1>
+          </div>
+          <div class="col-12 p-fluid">
+            <input id="usuario" name="usuario" type="email" pInputText
+                   placeholder="E-mail" ngModel required #usuario>
+          </div>
+          <div class="col-12 p-fluid">
+            <input id="password" name="senha" type="password" pInputText
+                   placeholder="Senha" ngModel required #senha>
+          </div>
+          <div class="col-12">
+            <button pButton pRipple type="submit" label="Login" [disabled]="loginForm.invalid"
+                      class="w-full" (click)="login(usuario.value, senha.value); senha.value=''"></button>
+          </div>
+        </div>
+      </form>
+    </p-card>
+  </section>
+</main>

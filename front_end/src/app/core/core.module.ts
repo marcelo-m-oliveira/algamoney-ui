@@ -16,6 +16,8 @@ import { LancamentoService } from "../views/lancamentos/lancamento.service"
 import { CategoriaService } from "../views/categorias/categoria.service"
 import { PessoaService } from "../views/pessoas/pessoa.service"
 import { ErrorHandlerService } from "./error-handler.service"
+import { SegurancaService } from "../views/seguranca.service"
+
 
 import { ConfirmDialogCustomComponent } from "./confirm-dialog-custom/confirm-dialog-custom.component"
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component'
@@ -66,6 +68,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     LancamentoService,
     PessoaService,
     CategoriaService,
+    SegurancaService,
 
     Title,
   ],
