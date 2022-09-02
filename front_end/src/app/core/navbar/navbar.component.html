@@ -12,8 +12,12 @@
 
     <ul class="navbar-menu" [hidden]="!exibindoMenu">
       <li class="navbar-usuario">{{ usuarioLogado }}</li>
-      <li class="navbar-menuItem" routerLinkActive="ativo"><a routerLink="/lancamentos">Lançamentos</a></li>
-      <li class="navbar-menuItem" routerLinkActive="ativo"><a routerLink="/pessoas">Pessoas</a></li>
+      <li class="navbar-menuItem" routerLinkActive="ativo" *ngIf="permissao('ROLE_PESQUISAR_LANCAMENTO')">
+        <a routerLink="/lancamentos">Lançamentos</a>
+      </li>
+      <li class="navbar-menuItem" routerLinkActive="ativo" *ngIf="permissao('ROLE_PESQUISAR_PESSOA')">
+        <a routerLink="/pessoas">Pessoas</a>
+      </li>
       <li class="navbar-menuItem"><a href="#">Sair</a></li>
     </ul>
   </nav>

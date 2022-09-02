@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { JwtHelperService } from '@auth0/angular-jwt'
 import { Injectable } from '@angular/core'
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +9,6 @@ export class SegurancaService {
 
   segurancaTokenUrl = 'http://localhost:8080/oauth/token'
   jwtPayload: any
-
 
   constructor(
     private http: HttpClient,
@@ -39,6 +37,10 @@ export class SegurancaService {
         }
         return Promise.reject(response)
       })
+  }
+
+  temPermissao(permissao: string): void {
+    return this.jwtPayload && this.jwtPayload.authorities.includes(permissao)
   }
 
   private armazenarToken(token: string): void {
