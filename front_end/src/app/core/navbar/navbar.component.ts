@@ -21,4 +21,5 @@ export class NavbarComponent implements OnInit {
   permissao(permissao: string): void {
     return this.segurancaService.temPermissao(permissao)
   }
+
 }
