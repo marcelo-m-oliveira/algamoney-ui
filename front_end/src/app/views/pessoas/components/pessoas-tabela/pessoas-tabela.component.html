@@ -30,7 +30,7 @@
             <button pButton pRipple type="button" class="p-button-rounded mr-2 mb-2" icon="pi pi-pencil" pTooltip="Editar" type="button"
                tooltipPosition="top" [showDelay]="300" [routerLink]="['/pessoas', pessoa.codigo]"></button>
             <button pButton pRipple type="button" class="p-button-rounded mr-2 mb-2" icon="pi pi-trash" pTooltip="Apagar" type="button"
-               tooltipPosition="top" [showDelay]="300" (click)="excluir(pessoa)"></button>
+               tooltipPosition="top" [showDelay]="300" (click)="excluir(pessoa)" [disabled]="naoTemPermissao('ROLE_REMOVER_LANCAMENTO')"></button>
         </ng-template>
       </td>
     </tr>

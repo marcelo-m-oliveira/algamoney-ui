@@ -9,6 +9,7 @@ import { PRIMENG_IMPORTS } from "../../primeng-imports"
 import { SharedModule } from "../../shared/shared.module"
 
 import { SegurancaRoutingModule } from "./seguranca-routing.module"
+import { SegurancaGuard } from './seguranca.guard'
 
 import { LoginFormComponent } from './login-form/login-form.component'
 import { MoneyHttpInterceptor } from './money-http-interceptor'
@@ -24,7 +25,7 @@ export function tokenGetter(): string {
   imports: [
     CommonModule,
     FormsModule,
-    
+
     JwtModule.forRoot({
       config: {
         tokenGetter,
@@ -45,7 +46,8 @@ export function tokenGetter(): string {
       provide: HTTP_INTERCEPTORS,
       useClass: MoneyHttpInterceptor,
       multi: true
-    }
+    },
+    SegurancaGuard
   ],
 })
 
