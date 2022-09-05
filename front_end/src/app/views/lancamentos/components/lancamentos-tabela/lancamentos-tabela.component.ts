@@ -1,6 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
-import { LancamentoFilter } from "../../lancamento.service"
+
 import { LazyLoadEvent } from "primeng/api"
+
+import { SegurancaService } from "../../../seguranca.service"
+import { LancamentoFilter } from "../../lancamento.service"
+
 
 @Component({
   selector: 'app-lancamentos-tabela',
@@ -25,7 +29,9 @@ export class LancamentosTabelaComponent {
     { header: 'Ações', text: false, type: 'buttons' },
   ]
 
-  constructor() { }
+  constructor(
+    private segurancaService: SegurancaService
+  ) { }
 
   aoMudarPagina(event: LazyLoadEvent): void {
     this.onLazyLoad.emit(event)
@@ -33,5 +39,9 @@ export class LancamentosTabelaComponent {
 
   excluir(lancamento: any): void {
     this.deletar.emit(lancamento)
+  }
+
+  naoTemPermissao(permissao: string): boolean {
+    return !this.segurancaService.temPermissao(permissao)
   }
 }

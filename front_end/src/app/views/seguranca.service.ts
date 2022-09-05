@@ -65,7 +65,7 @@ export class SegurancaService {
     return !token || this.jwtHelper.isTokenExpired(token)
   }
 
-  temPermissao(permissao: string): void {
+  temPermissao(permissao: string) {
     return this.jwtPayload && this.jwtPayload.authorities.includes(permissao)
   }
 

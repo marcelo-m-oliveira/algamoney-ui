@@ -19,6 +19,10 @@ export class ErrorHandlerService {
       && errorResponse.status <= 499) {
       msg = 'Ocorreu um erro ao processar a sua solicitação'
 
+      if(errorResponse.status === 403) {
+        msg = 'Você não tem permissão para executar esta ação!'
+      }
+
       try {
         msg = errorResponse.error[0].mensagemUsuario
       } catch (e) { }
@@ -29,7 +33,8 @@ export class ErrorHandlerService {
       console.error('Ocorreu um erro', errorResponse)
     }
 
-    this.messageService.add({ severity:'error', detail: msg })
+    errorResponse.status === 403 ? this.messageService.add({ severity: 'warn', detail: msg }) : this.messageService.add({ severity: 'error', detail: msg })
+
   }
 }
 

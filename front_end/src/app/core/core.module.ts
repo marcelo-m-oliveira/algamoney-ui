@@ -5,7 +5,7 @@ import { HttpClient } from "@angular/common/http"
 import ptBr from '@angular/common/locales/pt'
 import { RouterModule } from "@angular/router"
 
-import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core"
+import { TranslateLoader, TranslateModule, TranslateService } from "@ngx-translate/core"
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog'
