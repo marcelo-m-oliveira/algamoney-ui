@@ -22,6 +22,7 @@ import { SegurancaService } from "../views/seguranca.service"
 import { ConfirmDialogCustomComponent } from "./confirm-dialog-custom/confirm-dialog-custom.component"
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component'
 import { NavbarComponent } from "./navbar/navbar.component"
+import { NaoAutorizadoComponent } from './nao-autorizado/nao-autorizado.component'
 
 registerLocaleData(ptBr, 'pt-BR')
 
@@ -34,6 +35,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NavbarComponent,
     ConfirmDialogCustomComponent,
     PaginaNaoEncontradaComponent,
+    NaoAutorizadoComponent,
   ],
   imports: [
     CommonModule,

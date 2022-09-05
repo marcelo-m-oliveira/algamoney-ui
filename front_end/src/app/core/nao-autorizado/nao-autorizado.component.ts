@@ -1,22 +1,22 @@
-import { Title } from "@angular/platform-browser"
 import { Component, OnInit } from '@angular/core'
+import { Title } from '@angular/platform-browser'
 
 @Component({
-  selector: 'app-pagina-nao-encontrada',
+  selector: 'app-nao-autorizado',
   template: `
     <main>
       <section>
-        <p-card styleClass="card not-found" header="404 Página Não Encontrada">
+        <p-card styleClass="card not-found" header="403 Acesso não autorizado">
           <div class="grid itens-card">
             <div class="col-12">
               <h2 class="text-center">
-                A página que você está procurando não foi encontrada
+                A página que você está procurando não pode ser acessada por falta de permissão
               </h2>
             </div>
             <div class="col-12">
               <p class="itens-centro">
-                A página que você está procurando não existe. Ele pode
-                ter sido movido ou removido completamente. Talvez você possa
+                A página que você está procurando não pode ser acessada. Você pode não
+                ter acesso suficiente para acessar essa página. Talvez você possa
                 retornar à página inicial do site e ver se consegue encontrar
                 o que está procurando.
               </p>
@@ -28,16 +28,15 @@ import { Component, OnInit } from '@angular/core'
         </p-card>
       </section>
     </main>
-  `
-  ,
+  `,
   styles: [
   ]
 })
-export class PaginaNaoEncontradaComponent implements OnInit {
+export class NaoAutorizadoComponent implements OnInit {
 
   constructor(private title: Title) { }
 
   ngOnInit(): void {
-    this.title.setTitle('404 Página Não Encontrada')
+    this.title.setTitle('403 Acesso não autorizado')
   }
 }
