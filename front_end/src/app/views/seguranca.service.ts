@@ -60,13 +60,22 @@ export class SegurancaService {
       });
   }
 
-  isAccessTokenInvalido() {
+  isAccessTokenInvalido(): boolean {
     const token = localStorage.getItem('token')
     return !token || this.jwtHelper.isTokenExpired(token)
   }
 
-  temPermissao(permissao: string): void {
+  temPermissao(permissao: string): string {
     return this.jwtPayload && this.jwtPayload.authorities.includes(permissao)
+  }
+
+  temQualquerPermissao(roles: any): boolean {
+    for (const role of roles) {
+      if (this.temPermissao(role)) {
+        return true
+      }
+    }
+    return false
   }
 
   private armazenarToken(token: string): void {
@@ -75,7 +84,7 @@ export class SegurancaService {
     localStorage.setItem('token', token)
   }
 
-  private carregarToken() {
+  private carregarToken(): void {
     const token = localStorage.getItem('token')
 
     if (token) this.armazenarToken(token)

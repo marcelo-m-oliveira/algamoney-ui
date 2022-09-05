@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
+
 import { LazyLoadEvent } from "primeng/api"
+
+
+import { SegurancaService } from "../../../seguranca.service"
 import { PessoasFilter } from "../../pessoa.service"
 
 @Component({
@@ -23,7 +27,9 @@ export class PessoasTabelaComponent {
     { header: 'Ações', text: false, type: 'buttons' },
   ]
 
-  constructor() { }
+  constructor(
+    private segurancaService: SegurancaService
+  ) { }
 
   aoMudarPagina(event: LazyLoadEvent): void {
     this.onLazyLoad.emit(event)
@@ -35,5 +41,9 @@ export class PessoasTabelaComponent {
 
   alterarStatus(pessoa: any): void {
     this.status.emit(pessoa)
+  }
+
+  naoTemPermissao(permissao: string): boolean {
+    return !this.segurancaService.temPermissao(permissao)
   }
 }

@@ -5,7 +5,7 @@ import { HttpClient } from "@angular/common/http"
 import ptBr from '@angular/common/locales/pt'
 import { RouterModule } from "@angular/router"
 
-import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core"
+import { TranslateLoader, TranslateModule, TranslateService } from "@ngx-translate/core"
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog'
@@ -22,6 +22,7 @@ import { SegurancaService } from "../views/seguranca.service"
 import { ConfirmDialogCustomComponent } from "./confirm-dialog-custom/confirm-dialog-custom.component"
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component'
 import { NavbarComponent } from "./navbar/navbar.component"
+import { NaoAutorizadoComponent } from './nao-autorizado/nao-autorizado.component'
 
 registerLocaleData(ptBr, 'pt-BR')
 
@@ -34,6 +35,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NavbarComponent,
     ConfirmDialogCustomComponent,
     PaginaNaoEncontradaComponent,
+    NaoAutorizadoComponent,
   ],
   imports: [
     CommonModule,
