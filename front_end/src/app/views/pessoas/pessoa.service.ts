@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core'
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http"
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 
-import { Pessoa } from "../../core/model"
+import { Pessoa } from '../../core/model'
+
+import { environment } from '../../../environments/environment'
 
 export class PessoasFilter {
   nome?: string
@@ -14,12 +16,14 @@ export class PessoasFilter {
 })
 export class PessoaService {
 
-  pessoasUrl = 'http://localhost:8080/pessoas'
+  pessoasUrl: string
   headers = new HttpHeaders().append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
 
   constructor(
     private http: HttpClient,
-  ) { }
+  ) {
+    this.pessoasUrl = `${environment.apiUrl}/pessoas`
+  }
 
   pesquisar(filtro: PessoasFilter): Promise<any> {
     this.headers

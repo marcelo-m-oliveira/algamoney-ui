@@ -1,8 +1,10 @@
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http"
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { DatePipe } from "@angular/common"
+import { DatePipe } from '@angular/common'
 
-import { Lancamento } from "../../core/model"
+import { Lancamento } from '../../core/model'
+
+import { environment } from '../../../environments/environment'
 
 export class LancamentoFilter {
   codigo?: number
@@ -19,13 +21,15 @@ export class LancamentoFilter {
 
 export class LancamentoService {
 
-  lancamentosUrl = 'http://localhost:8080/lancamentos'
+  lancamentosUrl: string
   headers = new HttpHeaders().append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
 
   constructor(
     private http: HttpClient,
     private datePipe: DatePipe
-  ) { }
+  ) {
+    this.lancamentosUrl = `${environment.apiUrl}/lancamentos`
+  }
 
   pesquisar(filtro: LancamentoFilter): Promise<any> {
     let params = new HttpParams()
