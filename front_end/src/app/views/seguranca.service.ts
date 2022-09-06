@@ -8,6 +8,8 @@ import { Injectable } from '@angular/core'
 export class SegurancaService {
 
   segurancaTokenUrl = 'http://localhost:8080/oauth/token'
+  tokensRevokeUrl = 'http://localhost:8080/tokens/revoke'
+
   jwtPayload: any
 
   constructor(
@@ -36,6 +38,14 @@ export class SegurancaService {
           }
         }
         return Promise.reject(response)
+      })
+  }
+
+  logout() {
+    return this.http.delete(this.tokensRevokeUrl, { withCredentials: true })
+      .toPromise()
+      .then(() => {
+        this.limparAccessToken()
       })
   }
 
@@ -89,4 +99,11 @@ export class SegurancaService {
 
     if (token) this.armazenarToken(token)
   }
+
+  limparAccessToken() {
+    localStorage.removeItem('token')
+    this.jwtPayload = null
+  }
+
+
 }

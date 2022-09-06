@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 
-import { SegurancaService } from "../../views/seguranca.service"
+import { ErrorHandlerService } from '../error-handler.service'
+
+import { SegurancaService } from '../../views/seguranca.service'
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +15,13 @@ export class NavbarComponent implements OnInit {
   exibindoMenu: boolean = false
   usuarioLogado!: string
 
-  constructor(private segurancaService: SegurancaService) { }
+  constructor(
+    private errorHandler: ErrorHandlerService,
+
+    private router: Router,
+
+    private segurancaService: SegurancaService,
+    ) { }
 
   ngOnInit(): void {
     this.usuarioLogado = this.segurancaService.jwtPayload?.nome
@@ -20,6 +29,13 @@ export class NavbarComponent implements OnInit {
 
   permissao(permissao: string): string {
     return this.segurancaService.temPermissao(permissao)
+  }
+
+  logout() {
+    this.segurancaService.logout()
+      .then(() => {
+        this.router.navigate(['/login'])
+      }).catch(error => this.errorHandler.handle(error))
   }
 
 }
