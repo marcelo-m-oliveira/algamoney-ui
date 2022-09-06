@@ -18,7 +18,9 @@
       <li class="navbar-menuItem" routerLinkActive="ativo" *ngIf="permissao('ROLE_PESQUISAR_PESSOA')">
         <a routerLink="/pessoas">Pessoas</a>
       </li>
-      <li class="navbar-menuItem"><a href="#">Sair</a></li>
+      <li class="navbar-menuItem cursor-pointer">
+        <a (click)="logout()">Sair</a>
+      </li>
     </ul>
   </nav>
 </header>

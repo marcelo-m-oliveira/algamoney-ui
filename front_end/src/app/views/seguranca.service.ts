@@ -1,19 +1,26 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http"
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { JwtHelperService } from '@auth0/angular-jwt'
 import { Injectable } from '@angular/core'
+
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SegurancaService {
 
-  segurancaTokenUrl = 'http://localhost:8080/oauth/token'
+  segurancaTokenUrl: string
+  tokensRevokeUrl: string
+
   jwtPayload: any
 
   constructor(
     private http: HttpClient,
     private jwtHelper: JwtHelperService,
   ) {
+    this.segurancaTokenUrl = `${environment.apiUrl}/oauth/token`
+    this.tokensRevokeUrl = `${environment.apiUrl}/tokens/revoke`
+
     this.carregarToken()
   }
 
@@ -36,6 +43,14 @@ export class SegurancaService {
           }
         }
         return Promise.reject(response)
+      })
+  }
+
+  logout() {
+    return this.http.delete(this.tokensRevokeUrl, { withCredentials: true })
+      .toPromise()
+      .then(() => {
+        this.limparAccessToken()
       })
   }
 
@@ -89,4 +104,11 @@ export class SegurancaService {
 
     if (token) this.armazenarToken(token)
   }
+
+  limparAccessToken() {
+    localStorage.removeItem('token')
+    this.jwtPayload = null
+  }
+
+
 }
