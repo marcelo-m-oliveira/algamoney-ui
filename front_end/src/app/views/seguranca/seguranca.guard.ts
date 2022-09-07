@@ -23,17 +23,20 @@ export class SegurancaGuard implements CanActivate {
 
       return this.segurancaService.obterNovoAccessToken()
         .then(() => {
-
           if (this.segurancaService.isAccessTokenInvalido()) {
             this.router.navigate(['/login'])
             return false
           }
 
-          return true
+          return this.podeAcessarRota(next.data['roles'])
         })
     }
 
-    else if(next.data['roles'] && !this.segurancaService.temQualquerPermissao(next.data['roles'])) {
+    return this.podeAcessarRota(next.data['roles'])
+  }
+
+  podeAcessarRota(roles: string[]): boolean {
+    if (roles && !this.segurancaService.temQualquerPermissao(roles)) {
       this.router.navigate(['/nao-autorizado'])
       return false
     }
