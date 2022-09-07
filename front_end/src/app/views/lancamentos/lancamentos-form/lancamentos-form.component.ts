@@ -113,7 +113,7 @@ export class LancamentosFormComponent implements OnInit {
     this.router.navigate(['/lancamentos/novo'])
   }
 
-  private atualizarTituloEdicao(): void {
+  atualizarTituloEdicao(): void {
     this.title.setTitle(`Edição de lancamento: ${this.lancamento.descricao}`)
   }
 }
