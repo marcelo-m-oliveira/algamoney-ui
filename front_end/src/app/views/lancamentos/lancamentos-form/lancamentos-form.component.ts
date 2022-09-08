@@ -1,16 +1,18 @@
+import { Title } from '@angular/platform-browser'
 import { Component, OnInit } from '@angular/core'
-import {ActivatedRoute, Router} from "@angular/router"
-import { NgForm } from "@angular/forms"
+import { ActivatedRoute, Router } from '@angular/router'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
-import { MessageService } from "primeng/api"
+import { MessageService } from 'primeng/api'
 
-import { ErrorHandlerService } from "../../../core/error-handler.service"
-import { CategoriaService } from "../../categorias/categoria.service"
-import { PessoaService } from "../../pessoas/pessoa.service"
-import { LancamentoService } from "../lancamento.service"
+import { ErrorHandlerService } from '../../../core/error-handler.service'
+import { CategoriaService } from '../../categorias/categoria.service'
+import { PessoaService } from '../../pessoas/pessoa.service'
+import { LancamentoService } from '../lancamento.service'
 
-import { Lancamento } from "../../../core/model"
-import { Title } from "@angular/platform-browser"
+import { Lancamento } from '../../../core/model'
+import { Categoria } from '../../../core/model'
+import { Pessoa } from '../../../core/model'
 
 @Component({
   selector: 'app-lancamentos-form',
@@ -18,10 +20,10 @@ import { Title } from "@angular/platform-browser"
 })
 export class LancamentosFormComponent implements OnInit {
 
-  lancamento: Lancamento = new Lancamento()
+  formulario!: FormGroup
 
-  categorias: any[] = []
-  pessoas: any[] = []
+  categorias: Categoria[] = []
+  pessoas: Pessoa[] = []
   tipos: any[] = [
     { label: 'Receita', value: 'RECEITA' },
     { label: 'Despesa', value: 'DESPESA' }
@@ -38,10 +40,14 @@ export class LancamentosFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
 
+    private formBuilder: FormBuilder,
+
     private title: Title,
   ) { }
 
   ngOnInit(): void {
+    this.configurarFormulario()
+
     this.title.setTitle('Novo lançamento')
     const codigoLancamento = this.route.snapshot.params['codigo']
 
@@ -51,14 +57,34 @@ export class LancamentosFormComponent implements OnInit {
     this.carregarPessoas()
   }
 
+  configurarFormulario() {
+    this.formulario = this.formBuilder.group({
+      codigo: [null],
+      tipo: ['RECEITA', Validators.required],
+      descricao: [null, [Validators.required, Validators.minLength(5)]],
+      dataVencimento: [null, Validators.required],
+      dataPagamento: [null],
+      valor: [null, Validators.required],
+      observacao: [],
+      pessoa: this.formBuilder.group({
+        codigo: ['', Validators.required],
+        nome: []
+      }),
+      categoria: this.formBuilder.group({
+        codigo: ['', Validators.required],
+        nome: []
+      })
+    })
+  }
+
   get editando(): boolean {
-    return Boolean(this.lancamento.codigo)
+    return Boolean(this.formulario.get('codigo')!.value);
   }
 
   carregarLancamento(codigo: number): void {
     this.lancamentoService.buscarPorCodigo(codigo)
       .then((lancamento: Lancamento) => {
-        this.lancamento = lancamento
+        this.formulario.patchValue(lancamento)
         this.atualizarTituloEdicao()
       })
       .catch(error => this.errorHandlerService.handle(error))
@@ -84,36 +110,38 @@ export class LancamentosFormComponent implements OnInit {
       .catch(error => this.errorHandlerService.handle(error))
   }
 
-  salvar(form: NgForm): void {
-    this.editando ? this.atualizarLancamento(form) : this.adicionarLancamento(form)
+  salvar(): void {
+    this.editando ? this.atualizarLancamento() : this.adicionarLancamento()
   }
 
-  adicionarLancamento(form: NgForm): void {
-    this.lancamentoService.adicionar(this.lancamento)
+  adicionarLancamento(): void {
+    this.lancamentoService.adicionar(this.formulario.value)
       .then((response: Lancamento) => {
         this.messageService.add({ severity: 'success', detail: 'Lançamento adicionado com sucesso!' })
+
         this.router.navigate(['/lancamentos', response.codigo])
       })
       .catch(error => this.errorHandlerService.handle(error))
   }
 
-  atualizarLancamento(form: NgForm): void {
-    this.lancamentoService.atualizar(this.lancamento)
-      .then((lancamento: Lancamento) => {
-        this.lancamento = lancamento
-        this.atualizarTituloEdicao()
+  atualizarLancamento(): void {
+    this.lancamentoService.atualizar(this.formulario.value)
+      .then((response: Lancamento) => {
+        this.formulario.patchValue(response)
         this.messageService.add({ severity: 'success', detail: 'Lançamento atualizado com sucesso!' })
+
+        this.atualizarTituloEdicao()
       })
       .catch(error => this.errorHandlerService.handle(error))
   }
 
-  novo(form: NgForm): void {
-    form.reset(new Lancamento())
+  novo(): void {
+    this.formulario.reset(new Lancamento())
 
     this.router.navigate(['/lancamentos/novo'])
   }
 
   atualizarTituloEdicao(): void {
-    this.title.setTitle(`Edição de lancamento: ${this.lancamento.descricao}`)
+    this.title.setTitle(`Edição de lancamento: ${this.formulario.get('descricao')!.value}`)
   }
 }
