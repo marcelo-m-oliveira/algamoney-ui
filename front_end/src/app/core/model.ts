@@ -18,6 +18,8 @@ export class Pessoa {
 
 export class Categoria {
   codigo!: string
+  nome!: string
+
 }
 
 export class Lancamento {

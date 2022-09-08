@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common'
-import { FormsModule } from "@angular/forms"
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { NgModule } from '@angular/core'
 
-import { PRIMENG_IMPORTS } from "../../primeng-imports"
+import { PRIMENG_IMPORTS } from '../../primeng-imports'
 
-import { SharedModule } from "../../shared/shared.module"
+import { SharedModule } from '../../shared/shared.module'
 
-import { LancamentosRoutingModule } from "./lancamentos-routing.module"
+import { LancamentosRoutingModule } from './lancamentos-routing.module'
 
-import { LancamentosTabelaComponent } from "./components/lancamentos-tabela/lancamentos-tabela.component"
-import { LancamentosFormComponent } from "./lancamentos-form/lancamentos-form.component"
-import { LancamentosComponent } from "./lancamentos/lancamentos.component"
+import { LancamentosTabelaComponent } from './components/lancamentos-tabela/lancamentos-tabela.component'
+import { LancamentosFormComponent } from './lancamentos-form/lancamentos-form.component'
+import { LancamentosComponent } from './lancamentos/lancamentos.component'
 
 
 
@@ -23,9 +23,9 @@ import { LancamentosComponent } from "./lancamentos/lancamentos.component"
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
 
     PRIMENG_IMPORTS,
-
 
     SharedModule,
 
