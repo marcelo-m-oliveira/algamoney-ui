@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser'
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms'
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms'
 
 import { MessageService } from 'primeng/api'
 
@@ -60,22 +60,31 @@ export class LancamentosFormComponent implements OnInit {
   configurarFormulario() {
     this.formulario = this.formBuilder.group({
       codigo: [],
-      tipo: ['RECEITA', Validators.required],
-      descricao: [null, [Validators.required, Validators.minLength(5)]],
-      dataVencimento: [null, Validators.required],
+      tipo: ['RECEITA', this.validarObrigatoriedade],
+      descricao: [null, [this.validarObrigatoriedade, this.validarTamanhoMinimo(5)]],
+      dataVencimento: [null, this.validarObrigatoriedade],
       dataPagamento: [],
-      valor: [null, Validators.required],
+      valor: [null, this.validarObrigatoriedade],
       observacao: [],
       pessoa: this.formBuilder.group({
-        codigo: [null, [Validators.required]],
+        codigo: [null, this.validarObrigatoriedade],
         nome: []
       }),
       categoria: this.formBuilder.group({
-        codigo: [null, [Validators.required]],
+        codigo: [null, this.validarObrigatoriedade],
         nome: []
       })
     })
-    console.log(this.formulario.get('pessoa.codigo')!.value)
+  }
+
+  validarObrigatoriedade(input: FormControl) {
+    return (input.value ? null : { obrigatoriedade: true })
+  }
+
+  validarTamanhoMinimo(valor: number) {
+    return (input: FormControl) => {
+      return (!input.value || input.value.length >= valor) ? null : { tamanhoMinimo: { tamanho: valor } }
+    }
   }
 
   get editando(): boolean {
