@@ -32,8 +32,7 @@
             <h4 for="descricao">Descrição</h4>
             <input id="descricao" name="descricao" type="text" class="w-full" pInputText
               formControlName="descricao">
-            <app-message [control]="formulario.get('descricao')" error="required"
-                         text="Informe uma descrição"></app-message>
+            <app-message [control]="formulario.get('descricao')" error="required" text="Informe uma descrição"></app-message>
             <app-message [control]="formulario.get('descricao')" error="minlength"
                          text="Mínimo de {{ formulario.get('descricao')?.errors?.['minlength']?.requiredLength }} caracteres. Você digitou apenas {{ formulario.get('descricao')?.errors?.['minlength']?.actualLength }}"></app-message>
           </div>

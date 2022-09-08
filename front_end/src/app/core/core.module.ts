@@ -23,6 +23,7 @@ import { ConfirmDialogCustomComponent } from "./confirm-dialog-custom/confirm-di
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component'
 import { NavbarComponent } from "./navbar/navbar.component"
 import { NaoAutorizadoComponent } from './nao-autorizado/nao-autorizado.component'
+import {ConfirmationService, MessageService} from "primeng/api";
 
 registerLocaleData(ptBr, 'pt-BR')
 
@@ -71,6 +72,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     PessoaService,
     CategoriaService,
     SegurancaService,
+
+    MessageService,
+    ConfirmationService,
 
     Title,
   ],

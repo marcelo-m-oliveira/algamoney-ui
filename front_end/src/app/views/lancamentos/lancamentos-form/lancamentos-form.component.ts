@@ -1,7 +1,7 @@
 import { Title } from '@angular/platform-browser'
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms'
 
 import { MessageService } from 'primeng/api'
 
@@ -59,22 +59,23 @@ export class LancamentosFormComponent implements OnInit {
 
   configurarFormulario() {
     this.formulario = this.formBuilder.group({
-      codigo: [null],
+      codigo: [],
       tipo: ['RECEITA', Validators.required],
       descricao: [null, [Validators.required, Validators.minLength(5)]],
       dataVencimento: [null, Validators.required],
-      dataPagamento: [null],
+      dataPagamento: [],
       valor: [null, Validators.required],
       observacao: [],
       pessoa: this.formBuilder.group({
-        codigo: ['', Validators.required],
+        codigo: [null, [Validators.required]],
         nome: []
       }),
       categoria: this.formBuilder.group({
-        codigo: ['', Validators.required],
+        codigo: [null, [Validators.required]],
         nome: []
       })
     })
+    console.log(this.formulario.get('pessoa.codigo')!.value)
   }
 
   get editando(): boolean {
