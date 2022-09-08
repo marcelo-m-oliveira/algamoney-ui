@@ -18,7 +18,8 @@
             <p-calendar id="dataVencimento" name="dataVencimento" class="w-full" dateFormat="dd/mm/yy"
               formControlName="dataVencimento" [showIcon]="true" [readonlyInput]="true">
             </p-calendar>
-            <app-message [control]="formulario.get('dataVencimento')" error="required" text="Informe uma data de vencimento"></app-message>
+            <app-message [control]="formulario.get('dataVencimento')" error="obrigatoriedade"
+              text="Informe uma data de vencimento"></app-message>
           </div>
 
           <div class="p-fluid col-6">
@@ -30,46 +31,52 @@
 
           <div class="col-12 md:col-9">
             <h4 for="descricao">Descrição</h4>
-            <input id="descricao" name="descricao" type="text" class="w-full" pInputText
-              formControlName="descricao">
-            <app-message [control]="formulario.get('descricao')" error="required" text="Informe uma descrição"></app-message>
-            <app-message [control]="formulario.get('descricao')" error="minlength"
-                         text="Mínimo de {{ formulario.get('descricao')?.errors?.['minlength']?.requiredLength }} caracteres. Você digitou apenas {{ formulario.get('descricao')?.errors?.['minlength']?.actualLength }}"></app-message>
+            <input id="descricao" name="descricao" type="text" class="w-full" pInputText formControlName="descricao">
+            <app-message [control]="formulario.get('descricao')" error="obrigatoriedade" text="Informe uma descrição">
+            </app-message>
+            <app-message [control]="formulario.get('descricao')" error="tamanhoMinimo"
+              text="Mínimo de {{ formulario.get('descricao')?.errors?.['tamanhoMinimo']?.tamanho }} caracteres.">
+            </app-message>
           </div>
 
           <div class="p-fluid col-12 md:col-3">
             <h4 for="valor">Valor</h4>
             <p-inputNumber id="valor" name="valor" placeholder="0,00" mode="currency" currency="BRL" locale="pt-BR"
-                           styleClass="w-full" formControlName="valor">
+              styleClass="w-full" formControlName="valor">
             </p-inputNumber>
-            <app-message [control]="formulario.get('valor')" error="required" text="Informe um valor"></app-message>
+            <app-message [control]="formulario.get('valor')" error="obrigatoriedade" text="Informe um valor">
+            </app-message>
           </div>
 
           <div class="col-12 md:col-6" formGroupName="categoria">
             <h4 for="categoria">Categoria</h4>
-            <p-dropdown id="categoria" name="categoria" [options]="categorias" placeholder="Selecione uma Categoria" styleClass="w-full"
-                        [showClear]="true" [filter]="true" formControlName="codigo"></p-dropdown>
+            <p-dropdown id="categoria" name="categoria" [options]="categorias" placeholder="Selecione uma Categoria"
+              styleClass="w-full" [showClear]="true" [filter]="true" formControlName="codigo"></p-dropdown>
           </div>
 
           <div class="col-12 md:col-6" formGroupName="pessoa">
             <h4 for="pessoa">Pessoa</h4>
-            <p-dropdown id="pessoa" name="pessoa" [options]="pessoas" placeholder="Selecione uma Pessoa" styleClass="w-full"
-                        [showClear]="true" [filter]="true" formControlName="codigo"></p-dropdown>
+            <p-dropdown id="pessoa" name="pessoa" [options]="pessoas" placeholder="Selecione uma Pessoa"
+              styleClass="w-full" [showClear]="true" [filter]="true" formControlName="codigo"></p-dropdown>
           </div>
 
           <div class="col-12 p-fluid">
             <h4 for="observacao">Observação</h4>
-            <textarea [rows]="5" [cols]="30" id="observacao" name="observacao" class="w-full" pInputTextarea formControlName="observacao"></textarea>
+            <textarea [rows]="5" [cols]="30" id="observacao" name="observacao" class="w-full" pInputTextarea
+              formControlName="observacao"></textarea>
           </div>
 
           <div class="col-4 md:col-2">
-            <button pButton pRipple type="submit" label="Salvar" class="w-full mr-2 mb-2" [disabled]="formulario.invalid"></button>
+            <button pButton pRipple type="submit" label="Salvar" class="w-full mr-2 mb-2"
+              [disabled]="formulario.invalid"></button>
           </div>
           <div class="col-4 md:col-2">
-            <button pButton pRipple type="button" label="Novo" class="p-button-info w-full mr-2 mb-2" (click)="novo()"></button>
+            <button pButton pRipple type="button" label="Novo" class="p-button-info w-full mr-2 mb-2"
+              (click)="novo()"></button>
           </div>
           <div class="col-4 md:col-2">
-            <button pButton pRipple type="button" label="Voltar" class="w-full mr-2 mb-2" routerLink="/lancamentos"></button>
+            <button pButton pRipple type="button" label="Voltar" class="w-full mr-2 mb-2"
+              routerLink="/lancamentos"></button>
           </div>
         </div>
       </section>
